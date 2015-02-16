@@ -1,6 +1,7 @@
 # GP1_Bulk_Club
 This is the first group project for CS1C
 
+Check the "Project-Details" Branch for the full project
 
 You are to write a program that services members of Bulk Club.  You must use inheritance, composition, exception handlers, a virtual function, and at least one overloaded operator.  At least one class should use templates. At least one class must contain a pointer (a copy constructor needs to be written and tested).   Highlight the above.  Write at least 10 agile stories (including description, tasks, test scenarios, and story points) before you start to develop software.
 
