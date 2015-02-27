@@ -22,7 +22,7 @@ void BulkClass::AddMembers(ifstream &infile)
 	BasicMember ** tempArray;
 
 	//private data member set to 0;
-	memberCount = 0;
+	//memberCount = 0;
 
 	infile.open("InputMembers.txt");
 
@@ -60,8 +60,7 @@ void BulkClass::AddMembers(ifstream &infile)
 			//constructor call
 			memberArray[memberCount] = new PreferredMember(tempName, tempId,
 					tempMemberType, tempDate);
-		}
-		else if (tempMemberType == "Basic")
+		} else if (tempMemberType == "Basic")
 		{
 			//constructor call
 			memberArray[memberCount] = new BasicMember(tempName, tempId,
@@ -100,7 +99,152 @@ void BulkClass::AddMembers(ifstream &infile)
 	 * 5)this process repeats till the file is all read.
 	 */
 
+}
 
+void BulkClass::PrintSalesReport(int enteredDay)
+{
+
+	float totalRevenue = 0;
+	cout << endl << endl;
+
+	cout << "OPTION 1 FOR MENU: \n\n";
+	//outter loop to loop through transactions array
+	for (int tCount = 0; tCount < transactionCount; tCount++)
+	{
+		//must be looking through data on the right day
+		if (enteredDay == itemArray[tCount]->day)
+		{
+			//adds up all the revenue that day * the quantity of items
+			//bought as well
+			totalRevenue += itemArray[tCount]->itemPrice
+					* itemArray[tCount]->itemQuantity;
+
+			//cross reference, need to compare the id in the transaction
+			//file with the member list
+			for (int mCount = 0; mCount < memberCount; mCount++)
+			{
+				//need to search the member array to a member number at
+				//the current itemArray postion to see who shopped that
+				//day
+				if (itemArray[tCount]->memberId == memberArray[mCount]->GetId())
+				{
+					//output member
+					cout << "Member Name: " << memberArray[mCount]->GetName()
+							<< endl;
+					break;
+
+				}
+			}
+
+			//output of item name and the quantity of each item.
+			cout << "Item Name: " << setw(30) << itemArray[tCount]->itemName
+					<< "  ";
+			cout << "Item Quantity: " << itemArray[tCount]->itemQuantity
+					<< endl;
+
+		}
+
+	}
+
+	cout << endl;
+	cout << "TOTAL SPENT ON DAY " << enteredDay << " : " << totalRevenue;
+
+}
+
+bool BulkClass::SearchNameOrId(string memberNameOrNumber)
+{
+
+	bool found = false; //is the name or ID found?
+
+	// will convert the string to an int...
+	// if a name is passed in, then the function will return zero, so then
+	// we have to look the name up to find an ID
+	long memberNum = std::strtol(memberNameOrNumber.c_str(), NULL, 10);
+
+	cout << "\n\n\nOPTION #2 ON MENU:\n";
+
+	cout << endl;
+	//if the function above is a zero...
+	if (memberNum == 0)
+	{
+		cout << "Searching for data for the name: " << memberNameOrNumber;
+		cout << endl << endl;
+
+		//searching the members for the name entered
+		for (int i = 0; i < memberCount; i++)
+		{
+			if (memberNameOrNumber == memberArray[i]->GetName())
+			{
+				//since the name is found at a certain index, the id for
+				//that person will be in the same index
+				memberNum = memberArray[i]->GetId();
+				found = true;
+			}
+		}
+	}
+
+	//if the user just entered an ID
+	cout << "Searching the ID: " << memberNum;
+	cout << endl << endl;
+
+	//all we have to do is search the transaction array
+	//either way (if name found) will enter and search for a matching
+	//ID number in the transactions arrray
+	for (int i = 0; i < transactionCount; i++)
+	{
+		//matching IDs
+		if (memberNum == itemArray[i]->memberId)
+		{
+
+			//output data
+			found = true;
+			cout << "itemPurchased: " << setw(30) << itemArray[i]->itemName;
+			cout << endl;
+			cout << "Quantity: " << itemArray[i]->itemQuantity;
+			cout << endl;
+
+		}
+
+	}
+
+	// if not found, will output statement in main.
+	return found;
+}
+
+void BulkClass::PrintTotalPurchases()
+{
+
+	float tempGrand = 0;
+	BasicMember* tempMem = NULL;
+
+
+	cout << "\nOPTION #3 FOR MENU:\n\n";
+
+	//sorts members by ID
+	for (int i = 0; i < memberCount; i++)
+	{
+		for (int j = 0; j < memberCount; j++)
+		{
+			if (memberArray[i]->GetId() < memberArray[j]->GetId())
+			{
+				tempMem = memberArray[i];
+				memberArray[i] = memberArray[j];
+				memberArray[j] = tempMem;
+			}
+		}
+	}
+
+	//outputs all data thats nesessary for this function
+	for (int i = 0; i < memberCount; i++)
+	{
+		cout << "ID: " << setw(20) << memberArray[i]->GetId();
+		cout << "Total Purchases: " <<  memberArray[i]->GetTotalSpent();
+
+		tempGrand+= memberArray[i]->GetTotalSpent();
+		cout << endl << endl;
+	}
+
+	cout << "total Spent: " << tempGrand;
 }
 
 //temp functiion to see if the correct date is used as output
@@ -108,20 +252,20 @@ void BulkClass::OutputMembers()
 {
 	cout << setprecision(2) << fixed;
 
-
 	for (int i = 0; i < memberCount; i++)
 	{
+
 		cout << left;
 
-		cout << setw(30) << memberArray[i]->GetName() <<
-		"  totalSpent: " <<setw(15)<< memberArray[i]->GetTotalSpent() ;
+		cout << setw(30) << memberArray[i]->GetName() << "  totalSpent: "
+				<< setw(15) << memberArray[i]->GetTotalSpent();
 
-		if(memberArray[i]->GetMemberType() == "Preferred")
+		if (memberArray[i]->GetMemberType() == "Preferred")
 		{
 
 			//typecast for rebate since it is of preferred class
 			cout << "Rebate: "
-				 << ((PreferredMember*) memberArray[i])->GetRebate();
+					<< ((PreferredMember*) memberArray[i])->GetRebate();
 		}
 
 		cout << endl;
@@ -154,7 +298,7 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber)
 	int index = 0;
 
 	//private member data
-	transactionCount = 0;
+	//transactionCount = 0;
 
 	//since the 5 days are in different files, we need to call this
 	//function 5 times each passing in a different file name verytime.
@@ -186,7 +330,10 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber)
 
 		// need to know which day transactions were done on
 		// file number is passed in
-		 itemArray[transactionCount]->day = fileNumber;
+		itemArray[transactionCount]->day = fileNumber;
+
+		// cout << fileNumber << endl;
+		// cout << itemArray[transactionCount]->day;
 
 		//setting all data in a struct object
 		getline(infile, tempDate);
@@ -226,19 +373,19 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber)
 				memberArray[index]->SettotalSpent(tempTotal);
 
 				//need to do rebate for preferred members
-				if (memberArray[index]->GetMemberType()== "Preferred")
+				if (memberArray[index]->GetMemberType() == "Preferred")
 				{
 
 					//typecast nesessary to get rebate for totaling
-					tempRebate =((PreferredMember*)
-							      memberArray[index])->GetRebate();
+					tempRebate =
+							((PreferredMember*) memberArray[index])->GetRebate();
 
 					//get the total rebate without taxes
-					tempRebate += tempTotal*.06;
+					tempRebate += tempTotal * .06;
 
 					//now we set the new rebate
-					((PreferredMember*)
-							memberArray[index])->SetRebate(tempRebate);
+					((PreferredMember*) memberArray[index])->SetRebate(
+							tempRebate);
 				}
 
 			}

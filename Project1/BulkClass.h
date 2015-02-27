@@ -45,6 +45,10 @@ public:
 	string to_string(int number);
 	//converts ints to a string
 
+	 void PrintSalesReport(int Day);
+	 bool SearchNameOrId(string);
+	 void PrintTotalPurchases();
+
 private:
 
 	//the arrays and their sizes

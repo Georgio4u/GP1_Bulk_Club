@@ -1,23 +1,22 @@
-/*
- * main.cpp
- *
- *  Created on: Feb 12, 2015
- *      Author: aenglish3
- */
 
 #include "BulkClass.h"
+
+namespace AustinsNameSpace
+	{
+		ifstream infile;
+		bool found = false;
+	}
+
+
+using namespace AustinsNameSpace;
 
 int main()
 {
 
-	ifstream infile;
 	BulkClass bulkClub;
 
 	//adds members
 	bulkClub.AddMembers(infile);
-
-	//outputs all members with default values
-	bulkClub.OutputMembers();
 	infile.clear();
 
 	//fills the array with the first file
@@ -38,10 +37,33 @@ int main()
 
 	//fills the array with the fifth file
 	bulkClub.FillItemArray(infile, 5);
-	cout << endl << endl;
+	cout << endl;
 
 	//outputs with all the changed data
 	bulkClub.OutputMembers();
+
+	//option #1, day is passed in by user input...
+	bulkClub.PrintSalesReport(4);
+
+	//option number 2 with an id passed in
+	found = bulkClub.SearchNameOrId("88888");
+	if (!found)
+	{
+		cout << "\n\nName or ID not found...\n";
+
+	}
+
+	//option number 2 with a name passed in
+	found = bulkClub.SearchNameOrId("Sally Shopper");
+	if (!found)
+	{
+		cout << "\n\nName or ID not found...\n";
+
+	}
+
+	cout << endl << endl;
+	//prints the total purchases by each member and a grand total.
+	bulkClub.PrintTotalPurchases();
 
 }
 
