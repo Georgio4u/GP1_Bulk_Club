@@ -46,8 +46,24 @@ public:
 	//converts ints to a string
 
 	 void PrintSalesReport(int Day);
+	 //prints the report for a single day
+
 	 bool SearchNameOrId(string);
+	 //	A user should be able to enter a membership number or name and
+	 //get a list of the total purchases per that member.
+
 	 void PrintTotalPurchases();
+	 //A report that prints the total purchases by all the members sorted
+	 //by membership number.  It should also include a grand total of the
+	 //purchases.
+
+	 void PrintTotalSalesAndItemsSold(string);
+	 //A user should be able to enter an item name and get the quantity of
+	 //that item sold as well as the total sales price.
+
+	 void PrintItemQuantity();
+	 //A report that prints out the quantity of each item sold sorted by
+	 //item name.
 
 private:
 

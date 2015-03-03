@@ -65,5 +65,15 @@ int main()
 	//prints the total purchases by each member and a grand total.
 	bulkClub.PrintTotalPurchases();
 
+	cout << endl << endl << endl;
+
+	//searchs an item by user input and ouputs the amount sold and the
+	//total price
+	bulkClub.PrintTotalSalesAndItemsSold("Coke");
+
+	cout << endl << endl << endl;
+
+	bulkClub.PrintItemQuantity();
+
 }
 

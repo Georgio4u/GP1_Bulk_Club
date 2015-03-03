@@ -217,7 +217,6 @@ void BulkClass::PrintTotalPurchases()
 	float tempGrand = 0;
 	BasicMember* tempMem = NULL;
 
-
 	cout << "\nOPTION #3 FOR MENU:\n\n";
 
 	//sorts members by ID
@@ -238,13 +237,162 @@ void BulkClass::PrintTotalPurchases()
 	for (int i = 0; i < memberCount; i++)
 	{
 		cout << "ID: " << setw(20) << memberArray[i]->GetId();
-		cout << "Total Purchases: " <<  memberArray[i]->GetTotalSpent();
+		cout << "Total Purchases: " << memberArray[i]->GetTotalSpent();
 
-		tempGrand+= memberArray[i]->GetTotalSpent();
+		tempGrand += memberArray[i]->GetTotalSpent();
 		cout << endl << endl;
 	}
 
 	cout << "total Spent: " << tempGrand;
+}
+
+void BulkClass::PrintTotalSalesAndItemsSold(string item)
+{
+
+	int tempCount = 0;
+	float tempTotal = 0.0;
+	bool found = false;
+
+	cout << "OPTION #4 ON MENU:\n\n";
+
+	for (int i = 0; i < transactionCount; i++)
+	{
+
+		if (itemArray[i]->itemName == item)
+		{
+			found = true;
+			tempCount += itemArray[i]->itemQuantity;
+			tempTotal += itemArray[i]->itemPrice;
+		}
+
+	}
+
+	if (found)
+	{
+		cout << "The number of " << item << " sold is: " << tempCount;
+		cout << endl << endl;
+		cout << "The total cost of " << item << " sold is: " << tempTotal;
+
+	} else
+	{
+		cout << "\nItem not found...\n";
+	}
+
+}
+
+void BulkClass::PrintItemQuantity()
+{
+
+	Transaction * tempItem = NULL;
+
+	cout << "OPTION #5 FOR MENU:\n\n";
+
+	//if( strcmp(string.c_str()
+	//sorts item array by item name
+	for (int i = 0; i < transactionCount; i++)
+	{
+		for (int j = 0; j < transactionCount; j++)
+		{
+			if (itemArray[i]->itemName < itemArray[j]->itemName)
+			{
+				tempItem = itemArray[i];
+				itemArray[i] = itemArray[j];
+				itemArray[j] = tempItem;
+			}
+		}
+	}
+
+	/* TEMP CODE FOR TESTING
+	 *
+	for (int i = 0; i < transactionCount; i++)
+		{
+		cout << itemArray[i]->itemName << " " << itemArray[i]->itemQuantity;
+		cout << endl;
+		}
+
+	cout << endl;
+
+
+	int tempQuantity;
+	for (int i = 0; i < transactionCount; i++)
+	{
+		tempQuantity = 0;
+		for (int j = i; j < transactionCount; j++)
+		{
+			if(itemArray[i]->itemName == itemArray[j]->itemName)
+				tempQuantity += itemArray[i]->itemQuantity;
+			else
+			{
+				cout << itemArray[i]->itemName << " " << tempQuantity;
+				cout << endl;
+				break;
+			}
+		}
+	}
+*/
+
+/*
+	int tempQuantity = 0;
+	int i = 0;
+
+	while (i<transactionCount-1)
+	{
+		if(itemArray[i+1]->itemName != itemArray[i]->itemName)
+		{
+			cout << itemArray[i]->itemName << " " << tempQuantity;
+			cout << endl;
+			tempQuantity = itemArray[i]->itemQuantity;
+		}
+		else
+		{
+			tempQuantity += itemArray[i]->itemQuantity;
+		}
+		i++;
+	}
+*/
+
+	//starts the tempName on the first item
+	string prevName = itemArray[0]->itemName;
+	int totQuantity = 0;
+
+	cout << setw(40) << "Item name" << "Quantity" << endl << endl;
+
+	//loop through items..tryingto get multiple quantities of each item
+	//from the file this time...
+	for (int i = 0; i < transactionCount; i++)
+	{
+		//will enter first time around,and if the names are still the same
+		//as i increments, will continue to enter if statement
+		if (itemArray[i]->itemName == prevName)
+		{
+			//adds quantity
+			totQuantity += itemArray[i]->itemQuantity;
+		}
+
+		//now item names are different, we can now output the total for
+		//that item
+		else
+		{
+			//output item and quantity
+			cout <<  setw(40) << prevName << totQuantity;
+			cout << endl;
+
+			// the previous name is now chnaged to the next i once the
+			// names differ
+			prevName = itemArray[i]->itemName;
+
+			//quantity will reset to as if thereis only one time the item
+			//appears in the list,and this might be the case,if not it
+			//will enter the if staement and add to the total
+			totQuantity = itemArray[i]->itemQuantity;
+		}
+	}
+
+	//delt the last name in the list,loop willend before the last item
+	//outputs
+	cout <<  setw(40) << prevName << totQuantity;
+	cout << endl;
+
 }
 
 //temp functiion to see if the correct date is used as output
@@ -252,6 +400,7 @@ void BulkClass::OutputMembers()
 {
 	cout << setprecision(2) << fixed;
 
+	cout << "TESTING DATA...\n\n\n";
 	for (int i = 0; i < memberCount; i++)
 	{
 
