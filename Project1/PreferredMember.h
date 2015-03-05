@@ -22,6 +22,8 @@ public:
 	float GetRebate();
 	//gets the rebate
 
+	virtual void PrintDues();
+
 
 private:
 

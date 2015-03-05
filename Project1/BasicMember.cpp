@@ -76,3 +76,16 @@ int BasicMember::GetId()
 
 }
 
+ void BasicMember:: PrintDues()
+ {
+	 cout << basicDues << endl;
+
+ }
+
+ int BasicMember:: ReturnMonthFromDate()
+ {
+
+	 return memberExpiration.GetMonth();
+
+
+ }

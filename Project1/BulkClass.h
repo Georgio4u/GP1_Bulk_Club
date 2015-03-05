@@ -65,6 +65,13 @@ public:
 	 //A report that prints out the quantity of each item sold sorted by
 	 //item name.
 
+	  void PrintPreferredRebate();
+	  //prints the rebate for the preferred members
+
+	  void PrintAmountPaid();
+
+	  void PrintMemberExpiration(int);
+
 private:
 
 	//the arrays and their sizes

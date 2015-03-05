@@ -44,3 +44,13 @@ float PreferredMember:: GetRebate()
 
 	return rebate;
 }
+
+
+void PreferredMember:: PrintDues()
+{
+
+	cout << preferredDues;
+	cout << endl;
+
+
+}

@@ -73,7 +73,19 @@ int main()
 
 	cout << endl << endl << endl;
 
+	//prints the opverall quantity of each item
 	bulkClub.PrintItemQuantity();
+
+	cout << endl << endl << endl;
+
+	//prints the rebate for preferred members
+	bulkClub.PrintPreferredRebate();
+
+	cout << endl << endl << endl;
+	bulkClub.PrintAmountPaid();
+
+	cout << endl << endl << endl;
+	bulkClub.PrintMemberExpiration(11);
 
 }
 

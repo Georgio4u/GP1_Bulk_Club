@@ -287,7 +287,6 @@ void BulkClass::PrintItemQuantity()
 
 	cout << "OPTION #5 FOR MENU:\n\n";
 
-	//if( strcmp(string.c_str()
 	//sorts item array by item name
 	for (int i = 0; i < transactionCount; i++)
 	{
@@ -302,8 +301,6 @@ void BulkClass::PrintItemQuantity()
 		}
 	}
 
-
-
 	int qty = 0;
 
 	//loop for item array
@@ -316,12 +313,117 @@ void BulkClass::PrintItemQuantity()
 		//(meaning the item names are different)the count will reset.
 		qty += itemArray[i]->itemQuantity;
 
-		if (i == transactionCount - 1 ||
-				 itemArray[i]->itemName != itemArray[i + 1]->itemName)
+		if (i == transactionCount - 1
+				|| itemArray[i]->itemName != itemArray[i + 1]->itemName)
 		{
-			cout << setw(40) << itemArray[i]->itemName  << qty << endl;
+			cout << setw(40) << itemArray[i]->itemName << qty << endl;
 			qty = 0;
 		}
+	}
+
+}
+
+void BulkClass::PrintPreferredRebate()
+{
+
+	BasicMember * tempMem;
+
+	cout << "OPTION #6 FOR MENU:\n\n";
+
+	cout << setw(15) << "ID" << "Rebate\n\n";
+
+	//sorts members by ID
+	for (int i = 0; i < memberCount; i++)
+	{
+		for (int j = 0; j < memberCount; j++)
+		{
+			if (memberArray[i]->GetId() < memberArray[j]->GetId())
+			{
+				tempMem = memberArray[i];
+				memberArray[i] = memberArray[j];
+				memberArray[j] = tempMem;
+			}
+		}
+	}
+
+	for (int i = 0; i < memberCount; i++)
+	{
+
+		if (memberArray[i]->GetMemberType() == "Preferred")
+		{
+
+			cout << setw(15) << memberArray[i]->GetId();
+
+			//typecast to access child class
+			cout << ((PreferredMember*) memberArray[i])->GetRebate();
+			cout << endl;
+
+		}
+
+	}
+
+}
+
+void BulkClass::PrintAmountPaid()
+{
+
+	BasicMember * tempMem;
+
+	cout << "OPTION #7:\n\n";
+
+	//sorts members by ID
+	for (int i = 0; i < memberCount; i++)
+	{
+		for (int j = 0; j < memberCount; j++)
+		{
+			if (memberArray[i]->GetMemberType() + memberArray[i]->GetName()
+					< memberArray[j]->GetMemberType()
+							+ memberArray[j]->GetName())
+			{
+				tempMem = memberArray[i];
+				memberArray[i] = memberArray[j];
+				memberArray[j] = tempMem;
+			}
+		}
+	}
+
+	cout << setw(25) << "membership type";
+	cout << setw(25) << "member name";
+	cout << "Dues" << endl << endl;
+
+	for (int i = 0; i < memberCount; i++)
+	{
+
+		cout << setw(25) << memberArray[i]->GetMemberType();
+		cout << setw(25) << memberArray[i]->GetName();
+		memberArray[i]->PrintDues();
+
+	}
+
+}
+
+void BulkClass::PrintMemberExpiration(int inputMonth)
+{
+
+	cout << "OPTION #8:\n\n";
+
+	cout <<"The member(s) whos memberships expire on " << inputMonth
+		 << " are:\n\n";
+
+	cout << setw(25) << "Name" << "Dues\n\n";
+
+
+	for (int i = 0; i < memberCount; i++)
+	{
+
+		if(memberArray[i]->ReturnMonthFromDate() == inputMonth)
+		{
+
+			cout << setw(25) << memberArray[i]->GetName();
+			 memberArray[i]->PrintDues();
+
+		}
+
 	}
 
 }
