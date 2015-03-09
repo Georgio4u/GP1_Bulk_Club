@@ -25,6 +25,22 @@ struct Transaction
 
 };
 
+enum MenuOptions
+{
+	EXIT,
+	ADD_INITIAL_MEMBERS,
+	ADD_TRANSACTIONS,
+	PRINT_SALES_REPORT,
+	SEARCH_NAME_OR_ID,
+	PRINT_TOTAL_PURCHASES,
+	PRINT_TOTAL_ITEMS_SOLD,
+	PRINT_ITEM_QUANTITY,
+	PRINT_REBATE,
+	PRINT_AMOUNT_PAID,
+	PRINT_EXPIRATION,
+	ADD_NEW_MEMBERS
+
+};
 
 class BulkClass
 {
@@ -33,54 +49,67 @@ public:
 	BulkClass();
 	//constructor
 
+	int GetMemberArraySize();
+	int GetTransactionArraySize();
+
 	void AddMembers(ifstream &infile);
 	//add members from file
+
+	int Menu();
 
 	void OutputMembers();
 	//basic output
 
-	void FillItemArray(ifstream&,int);
+	void FillItemArray(ifstream&, int);
 	//used to fill item/transactions array
 
 	string to_string(int number);
 	//converts ints to a string
 
-	 void PrintSalesReport(int Day);
-	 //prints the report for a single day
+	void PrintSalesReport(int Day);
+	//prints the report for a single day
 
-	 bool SearchNameOrId(string);
-	 //	A user should be able to enter a membership number or name and
-	 //get a list of the total purchases per that member.
+	bool SearchNameOrId(string);
+	//	A user should be able to enter a membership number or name and
+	//get a list of the total purchases per that member.
 
-	 void PrintTotalPurchases();
-	 //A report that prints the total purchases by all the members sorted
-	 //by membership number.  It should also include a grand total of the
-	 //purchases.
+	void PrintTotalPurchases();
+	//A report that prints the total purchases by all the members sorted
+	//by membership number.  It should also include a grand total of the
+	//purchases.
 
-	 void PrintTotalSalesAndItemsSold(string);
-	 //A user should be able to enter an item name and get the quantity of
-	 //that item sold as well as the total sales price.
+	void PrintTotalSalesAndItemsSold(string);
+	//A user should be able to enter an item name and get the quantity of
+	//that item sold as well as the total sales price.
 
-	 void PrintItemQuantity();
-	 //A report that prints out the quantity of each item sold sorted by
-	 //item name.
+	void PrintItemQuantity();
+	//A report that prints out the quantity of each item sold sorted by
+	//item name.
 
-	  void PrintPreferredRebate();
-	  //prints the rebate for the preferred members
+	void PrintPreferredRebate();
+	//prints the rebate for the preferred members
 
-	  void PrintAmountPaid();
+	void PrintAmountPaid();
 
-	  void PrintMemberExpiration(int);
+	void PrintMemberExpiration(int);
+
+	void AddMembers();
 
 private:
 
 	//the arrays and their sizes
 
- int memberCount;
- int transactionCount;
- BasicMember ** memberArray;
- Transaction ** itemArray;
+	int memberCount;
+	int transactionCount;
+	BasicMember ** memberArray;
+	Transaction ** itemArray;
 
+	float GetAndCheckInt(int int1,     //IN -  lowest allowable parameter for
+									   //      correct values that need to be
+									   //      error checked.
+			int int2); //IN -  highest allowable parameter for
+					   //      correct values that need to be
+					   //      error checked.
 
 };
 #endif /* BULKCLASS_H_ */

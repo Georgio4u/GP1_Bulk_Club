@@ -10,6 +10,132 @@ BulkClass::BulkClass()
 
 }
 
+int BulkClass::Menu()
+{
+
+	int tempChoice = -1;
+
+	//OUTPUT - the menu is diplsayed in main program
+	cout << "WELCOME TO BULK CLUB" << endl;
+	cout << setfill('-') << setw(26) << left << '-' << endl;
+	cout << setfill(' ');
+	cout << "0  - EXIT" << endl;
+	cout << "1  - PROCESS MEMBERS" << endl;
+	cout << "2  - PROCESS TRANSACTIONS" << endl;
+	cout << "3  - GENRERATE DAILY SALES REPORT" << endl;
+	cout << "4  - SEARCH A NAME OR ID" << endl;
+	cout << "5  - PRINT TOTAL PURCHASES" << endl;
+	cout << "6  - PRINT ITEMS SOLD" << endl;
+	cout << "7  - PRINT ITEM QUANTITY" << endl;
+	cout << "8  - PRINT REBATE" << endl;
+	cout << "9  - PRINT AMOUNT PAID" << endl;
+	cout << "10 - PRINT EXPIRATION" << endl;
+	cout << "11 - ADD MEMBERS" << endl;
+	cout << "12 - DELETE MEMBERS" << endl;
+
+	do
+	{
+
+		//function call - menu
+		cout << endl;
+		cout << "Choice: ";
+		//function call - check int input
+		tempChoice = GetAndCheckInt(0, 12);
+
+	} while (tempChoice == -1);
+
+	return tempChoice;
+
+}
+
+int BulkClass::GetMemberArraySize()
+{
+
+	return memberCount;
+
+}
+
+int BulkClass::GetTransactionArraySize()
+{
+
+	return transactionCount;
+}
+
+/*************************************************************************
+ *
+ * FUNCTION GetAndCheckInt
+ *_________________________________________________________________________
+ * This function will check for wrong input entered by the user, only
+ * number range passed in should be correct input.
+ *_________________________________________________________________________
+ * Pre-Conditions
+ * 	must have two values as parameters
+ *
+ * Post-Conditions
+ * 	This function will return the pick to main. if not valid, will return
+ * 	a -1.
+ *************************************************************************/
+float BulkClass::GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
+		//      correct values that need to be
+		//      error checked.
+		int int2) //IN -  highest allowable parameter for
+//      correct values that need to be
+//      error checked.
+{
+
+	ostringstream buffer; // CALC - used for spacing purposes
+	bool inputOk;         // CALC - error checking bool
+	float pick;           // OUT  - will output a correct number
+
+	//OUT - error checking command
+	pick = 0;
+	inputOk = false;
+
+	// if the number is a character
+	if (!(cin >> pick))
+	{
+		cout << endl;
+		cout << "**** Please input a NUMBER between " << int1 << " and " << int2
+				<< "       ****";
+		// wrong input will return an -1
+		pick = -1;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << endl << endl;
+
+	}
+
+	else
+	{
+
+		// this sets bool to true
+		inputOk = (pick >= int1 && pick < int2 + 1);
+
+		// if the number is not a valid entry
+		if (!inputOk)
+		{
+			//OUTPUT
+			cout << left;
+			cout << endl;
+			buffer << "**** The number " << pick;
+			cout << buffer.str() << setw(49 - buffer.str().length());
+			//cout << buffer.width();
+			cout << left << " is not a valid entry" << "****";
+			cout << endl;
+			cout << "**** Please input a NUMBER between ";
+			cout << int1 << " and " << setw(6) << left << int2 << "  ****";
+			cout << endl << endl;
+			buffer.str("");
+			// wrong input will return an -1
+			pick = -1;
+
+		}
+
+	}
+	// RETURN STATEMENT
+	return pick;
+}
+
 //adds members to a dynamic array
 void BulkClass::AddMembers(ifstream &infile)
 {
@@ -407,24 +533,83 @@ void BulkClass::PrintMemberExpiration(int inputMonth)
 
 	cout << "OPTION #8:\n\n";
 
-	cout <<"The member(s) whos memberships expire on " << inputMonth
-		 << " are:\n\n";
+	cout << "The member(s) whos memberships expire on " << inputMonth
+			<< " are:\n\n";
 
 	cout << setw(25) << "Name" << "Dues\n\n";
-
 
 	for (int i = 0; i < memberCount; i++)
 	{
 
-		if(memberArray[i]->ReturnMonthFromDate() == inputMonth)
+		if (memberArray[i]->ReturnMonthFromDate() == inputMonth)
 		{
 
 			cout << setw(25) << memberArray[i]->GetName();
-			 memberArray[i]->PrintDues();
+			memberArray[i]->PrintDues();
 
 		}
 
 	}
+
+}
+
+void BulkClass::AddMembers()
+{
+
+	string tempName;
+	int tempId;
+	string tempMemberType;
+	string tempDate;
+	BasicMember ** tempArray;
+
+	//reads in all temp data
+	cin.ignore(1000,'\n');
+
+	cout << setw(24) << "Enter a name: ";
+	getline(cin, tempName);
+	cout << endl;
+	cout << setw(24) << "Enter an ID: ";
+	cin >> tempId;
+	cin.ignore(1000, '\n');
+	cout << endl;
+	cout << setw(24) << "Enter a membership type: ";
+	getline(cin, tempMemberType);
+	cout << endl;
+	cout << "Enter a expiration date: ";
+	getline(cin, tempDate);
+
+	//temp array must hold the data of array...
+	tempArray = memberArray;
+
+	//creating a whole new array of base member
+	memberArray = new BasicMember*[memberCount + 1];
+
+	//will skip the first time when memberCount = 0;
+	//but will copy the induvidual elements over as array grows
+	for (int i = 0; i < memberCount; i++)
+	{
+
+		memberArray[i] = tempArray[i];
+
+	}
+
+	//tempArray must be deleted each time
+	delete tempArray;
+
+	//typecast for preferred members since the array is of base type
+	if (tempMemberType == "Preferred")
+	{
+		//constructor call
+		memberArray[memberCount] = new PreferredMember(tempName, tempId,
+				tempMemberType, tempDate);
+	} else if (tempMemberType == "Basic")
+	{
+		//constructor call
+		memberArray[memberCount] = new BasicMember(tempName, tempId,
+				tempMemberType, tempDate);
+	}
+
+	memberCount++;
 
 }
 
