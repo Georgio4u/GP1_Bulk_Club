@@ -38,7 +38,16 @@ enum MenuOptions
 	PRINT_REBATE,
 	PRINT_AMOUNT_PAID,
 	PRINT_EXPIRATION,
-	ADD_NEW_MEMBERS
+	ADD_NEW_MEMBERS,
+	DELETE_MEMBERS
+
+};
+
+enum DisplayCertainMember
+{
+	BASIC,
+	PREFERRED,
+	ALL_MEMBERS
 
 };
 
@@ -56,6 +65,7 @@ public:
 	//add members from file
 
 	int Menu();
+	string SubMenu();
 
 	void OutputMembers();
 	//basic output
@@ -94,6 +104,11 @@ public:
 	void PrintMemberExpiration(int);
 
 	void AddMembers();
+	void deleteMember();
+	void DeleteMemberList();
+	void DeleteTransactionList();
+
+
 
 private:
 
@@ -103,13 +118,6 @@ private:
 	int transactionCount;
 	BasicMember ** memberArray;
 	Transaction ** itemArray;
-
-	float GetAndCheckInt(int int1,     //IN -  lowest allowable parameter for
-									   //      correct values that need to be
-									   //      error checked.
-			int int2); //IN -  highest allowable parameter for
-					   //      correct values that need to be
-					   //      error checked.
 
 };
 #endif /* BULKCLASS_H_ */

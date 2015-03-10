@@ -1,4 +1,5 @@
 #include "BulkClass.h"
+#include "OtherFunctions.h"
 
 //default constructor
 BulkClass::BulkClass()
@@ -59,81 +60,6 @@ int BulkClass::GetTransactionArraySize()
 {
 
 	return transactionCount;
-}
-
-/*************************************************************************
- *
- * FUNCTION GetAndCheckInt
- *_________________________________________________________________________
- * This function will check for wrong input entered by the user, only
- * number range passed in should be correct input.
- *_________________________________________________________________________
- * Pre-Conditions
- * 	must have two values as parameters
- *
- * Post-Conditions
- * 	This function will return the pick to main. if not valid, will return
- * 	a -1.
- *************************************************************************/
-float BulkClass::GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
-		//      correct values that need to be
-		//      error checked.
-		int int2) //IN -  highest allowable parameter for
-//      correct values that need to be
-//      error checked.
-{
-
-	ostringstream buffer; // CALC - used for spacing purposes
-	bool inputOk;         // CALC - error checking bool
-	float pick;           // OUT  - will output a correct number
-
-	//OUT - error checking command
-	pick = 0;
-	inputOk = false;
-
-	// if the number is a character
-	if (!(cin >> pick))
-	{
-		cout << endl;
-		cout << "**** Please input a NUMBER between " << int1 << " and " << int2
-				<< "       ****";
-		// wrong input will return an -1
-		pick = -1;
-		cin.clear();
-		cin.ignore(1000, '\n');
-		cout << endl << endl;
-
-	}
-
-	else
-	{
-
-		// this sets bool to true
-		inputOk = (pick >= int1 && pick < int2 + 1);
-
-		// if the number is not a valid entry
-		if (!inputOk)
-		{
-			//OUTPUT
-			cout << left;
-			cout << endl;
-			buffer << "**** The number " << pick;
-			cout << buffer.str() << setw(49 - buffer.str().length());
-			//cout << buffer.width();
-			cout << left << " is not a valid entry" << "****";
-			cout << endl;
-			cout << "**** Please input a NUMBER between ";
-			cout << int1 << " and " << setw(6) << left << int2 << "  ****";
-			cout << endl << endl;
-			buffer.str("");
-			// wrong input will return an -1
-			pick = -1;
-
-		}
-
-	}
-	// RETURN STATEMENT
-	return pick;
 }
 
 //adds members to a dynamic array
@@ -227,11 +153,52 @@ void BulkClass::AddMembers(ifstream &infile)
 
 }
 
+string BulkClass::SubMenu()
+{
+	int tempChoice = -1;
+	string returnString;
+
+	cout << "ENTER THE MEMBERS YOU WANT DISPLAYED" << endl;
+	cout << setfill('-') << setw(26) << left << '-' << endl;
+	cout << setfill(' ');
+	cout << "0  - BASIC" << endl;
+	cout << "1  - PREFFERED" << endl;
+	cout << "2  - BOTH 0 AND 1" << endl;
+
+	do
+	{
+
+		//function call - menu
+		cout << endl;
+		cout << "Choice: ";
+		//function call - check int input
+		tempChoice = GetAndCheckInt(0, 2);
+
+	} while (tempChoice == -1);
+
+	if (tempChoice == 0)
+	{
+		returnString = "Basic";
+	} else if (tempChoice == 1)
+	{
+		returnString = "Preferred";
+	} else
+	{
+		returnString = "All";
+	}
+
+	return returnString;
+
+}
+
 void BulkClass::PrintSalesReport(int enteredDay)
 {
 
 	float totalRevenue = 0;
+	string memberChoice;
 	cout << endl << endl;
+
+	memberChoice = SubMenu();
 
 	cout << "OPTION 1 FOR MENU: \n\n";
 	//outter loop to loop through transactions array
@@ -249,6 +216,18 @@ void BulkClass::PrintSalesReport(int enteredDay)
 			//file with the member list
 			for (int mCount = 0; mCount < memberCount; mCount++)
 			{
+
+				if (memberChoice == "Basic"
+						&& memberArray[mCount]->GetMemberType() != "Basic")
+				{
+					continue;
+				}
+
+				if (memberChoice == "Preferred"
+						&& memberArray[mCount]->GetMemberType() != "Preferred")
+				{
+					continue;
+				}
 				//need to search the member array to a member number at
 				//the current itemArray postion to see who shopped that
 				//day
@@ -342,8 +321,10 @@ void BulkClass::PrintTotalPurchases()
 
 	float tempGrand = 0;
 	BasicMember* tempMem = NULL;
+	string memberChoice;
 
-	cout << "\nOPTION #3 FOR MENU:\n\n";
+	memberChoice = SubMenu();
+	cout << endl;
 
 	//sorts members by ID
 	for (int i = 0; i < memberCount; i++)
@@ -362,6 +343,18 @@ void BulkClass::PrintTotalPurchases()
 	//outputs all data thats nesessary for this function
 	for (int i = 0; i < memberCount; i++)
 	{
+		if (memberChoice == "Basic"
+				&& memberArray[i]->GetMemberType() != "Basic")
+		{
+			continue;
+		}
+
+		if (memberChoice == "Preferred"
+				&& memberArray[i]->GetMemberType() != "Preferred")
+		{
+			continue;
+		}
+
 		cout << "ID: " << setw(20) << memberArray[i]->GetId();
 		cout << "Total Purchases: " << memberArray[i]->GetTotalSpent();
 
@@ -494,8 +487,10 @@ void BulkClass::PrintAmountPaid()
 {
 
 	BasicMember * tempMem;
+	string memberChoice;
 
-	cout << "OPTION #7:\n\n";
+	memberChoice = SubMenu();
+		cout << endl;
 
 	//sorts members by ID
 	for (int i = 0; i < memberCount; i++)
@@ -519,6 +514,18 @@ void BulkClass::PrintAmountPaid()
 
 	for (int i = 0; i < memberCount; i++)
 	{
+
+		if (memberChoice == "Basic"
+				&& memberArray[i]->GetMemberType() != "Basic")
+		{
+			continue;
+		}
+
+		if (memberChoice == "Preferred"
+				&& memberArray[i]->GetMemberType() != "Preferred")
+		{
+			continue;
+		}
 
 		cout << setw(25) << memberArray[i]->GetMemberType();
 		cout << setw(25) << memberArray[i]->GetName();
@@ -563,7 +570,7 @@ void BulkClass::AddMembers()
 	BasicMember ** tempArray;
 
 	//reads in all temp data
-	cin.ignore(1000,'\n');
+	cin.ignore(1000, '\n');
 
 	cout << setw(24) << "Enter a name: ";
 	getline(cin, tempName);
@@ -610,6 +617,59 @@ void BulkClass::AddMembers()
 	}
 
 	memberCount++;
+
+}
+
+void BulkClass::deleteMember()
+{
+
+	BasicMember**tempArray;
+	string deletionName;
+	int deletedIndex = 0;
+	bool found = false;
+
+	cin.ignore(1000, '\n');
+	cout << "\n\nEnter a member for deletion: \n";
+	getline(cin, deletionName);
+
+	for (int i = 0; i < memberCount; i++)
+	{
+		if (deletionName == memberArray[i]->GetName())
+		{
+			deletedIndex = i;
+			found = true;
+		}
+
+	}
+
+	if (found)
+	{
+
+		// get pointer to current array
+		tempArray = memberArray;
+
+		// create new array size
+		memberArray = new BasicMember*[memberCount - 1];
+
+		//element size for new array
+		int a = 0;
+
+		for (int i = 0; i < memberCount - 1; i++)
+		{
+			// copy elements, except the one to be deleted
+			if (i != deletedIndex)  // skip item at position 25
+			{
+				memberArray[a] = tempArray[i];
+				a++;
+			}
+		}
+
+		// delete old array
+		delete tempArray;
+	} else
+	{
+		cout << "\n\nName not found!\n\n";
+	}
 
 }
 
@@ -772,5 +832,20 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber)
 void Transaction::ConvertStringDate(string tempDate)
 {
 	date.SetDate(tempDate);
+}
+
+void BulkClass::DeleteMemberList()
+{
+
+	delete[] memberArray;
+
+	memberCount = 0;
+}
+
+void BulkClass::DeleteTransactionList()
+{
+	delete[] itemArray;
+	transactionCount = 0;
+
 }
 

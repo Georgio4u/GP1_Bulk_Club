@@ -6,6 +6,7 @@
  */
 
 #include "BasicMember.h"
+#include "OtherFunctions.h"
 
 //default constructor
 BasicMember::BasicMember()
@@ -89,3 +90,7 @@ int BasicMember::GetId()
 
 
  }
+
+
+
+

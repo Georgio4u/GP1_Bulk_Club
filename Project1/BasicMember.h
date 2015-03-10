@@ -35,6 +35,7 @@ public:
 
 	virtual void PrintDues();
 
+
 private:
 
 	//all the private data members for a regular membership:
