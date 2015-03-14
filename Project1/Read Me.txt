@@ -1,0 +1,3 @@
+This is a basic setup to get used to github.
+Your goal is to modify this this txt document and let everyone know
+what changes you made uder the comments. 

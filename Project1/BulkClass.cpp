@@ -16,14 +16,7 @@ int BulkClass::Menu()
 
 	int tempChoice = -1;
 
-	cout <<
-	"__          __  _                            _______            \n"
-	"\\ \\        / / | |                          |__   __|         \n"
-	" \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___     | | ___       \n"
-	"  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\    | |/ _ \\ \n"
-	"   \\  /\\  /  __/ | (_| (_) | | | | | |  __/    | | (_) |      \n"
-	"    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|    |_|\\___/  \n\n";
-
+	// PRINT - Program name screen
 	cout <<
 	" ____        _ _       _____ _       _        ____   _____       \n"
 	"|  _ \\      | | |     / ____| |     | |      / __ \\ / ____|    \n"
@@ -33,21 +26,23 @@ int BulkClass::Menu()
 	"|____/ \\__,_|_|_|\\_\\  \\_____|_|\\__,_|_.__/   \\____/|_____/ \n\n";
 
 	//OUTPUT - the menu is diplsayed in main program
-	cout << setfill('-') << setw(26) << left << '-' << endl;
+	cout << setfill('-') << setw(59) << left << '-' << endl;
 	cout << setfill(' ');
-	cout << "0  - EXIT" << endl;
-	cout << "1  - PROCESS MEMBERS" << endl;
-	cout << "2  - PROCESS TRANSACTIONS" << endl;
-	cout << "3  - GENRERATE DAILY SALES REPORT" << endl;
-	cout << "4  - SEARCH A NAME OR ID" << endl;
-	cout << "5  - PRINT TOTAL PURCHASES" << endl;
-	cout << "6  - PRINT ITEMS SOLD" << endl;
-	cout << "7  - PRINT ITEM QUANTITY" << endl;
-	cout << "8  - PRINT REBATE" << endl;
-	cout << "9  - PRINT AMOUNT PAID" << endl;
-	cout << "10 - PRINT EXPIRATION" << endl;
-	cout << "11 - ADD MEMBERS" << endl;
-	cout << "12 - DELETE MEMBERS" << endl;
+	cout << setw(58) << "| 0  - EXIT"                        << '|' << endl;
+	cout << setw(58) << "| 1  - PROCESS MEMBERS"             << '|' << endl;
+	cout << setw(58) << "| 2  - PROCESS TRANSACTIONS"        << '|' << endl;
+	cout << setw(58) << "| 3  - GENRERATE DAILY SALES REPORT"<< '|' << endl;
+	cout << setw(58) << "| 4  - SEARCH A NAME OR ID"         << '|' << endl;
+	cout << setw(58) << "| 5  - PRINT TOTAL PURCHASES"       << '|' << endl;
+	cout << setw(58) << "| 6  - PRINT ITEMS SOLD"            << '|' << endl;
+	cout << setw(58) << "| 7  - PRINT ITEM QUANTITY"         << '|' << endl;
+	cout << setw(58) << "| 8  - PRINT REBATE"                << '|' << endl;
+	cout << setw(58) << "| 9  - PRINT AMOUNT PAID"           << '|' << endl;
+	cout << setw(58) << "| 10 - PRINT EXPIRATION"            << '|' << endl;
+	cout << setw(58) << "| 11 - ADD MEMBERS"                 << '|' << endl;
+	cout << setw(58) << "| 12 - DELETE MEMBERS"              << '|' << endl;
+	cout << setfill('-') << setw(59) << left << '-' << endl;
+	cout << setfill(' ');
 
 	do
 	{
@@ -91,7 +86,7 @@ void BulkClass::AddMembers(ifstream &infile)
 	//private data member set to 0;
 	//memberCount = 0;
 
-	infile.open("InputMembers.txt");
+	infile.open("C:/Users/RetupMoc/Documents/Workspaces/CS1C_Workspace/P1_BULK_CLUB/InputMembers.txt");
 
 	while (infile.good())
 	{
@@ -747,7 +742,7 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber)
 	//so When we pass in a 1 from main it turns the one into
 	//"Day1transactions.txt" and so on up till Day5transactions.
 
-	fileName = "Day" + to_string(fileNumber) + "Transactions.txt";
+	fileName = "C:/Users/RetupMoc/Documents/Workspaces/CS1C_Workspace/P1_BULK_CLUB/Day" + to_string(fileNumber) + "Transactions.txt";
 	infile.open(fileName.c_str());
 
 	while (infile.good())

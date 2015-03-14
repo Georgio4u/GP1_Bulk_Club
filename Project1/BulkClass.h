@@ -10,6 +10,7 @@
 
 #include "PreferredMember.h"
 #include "BasicMember.h"
+#include <stdlib.h>
 
 //struct for 5 days of transactions
 struct Transaction

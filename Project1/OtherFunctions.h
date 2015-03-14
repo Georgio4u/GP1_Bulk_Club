@@ -8,7 +8,7 @@
 #ifndef OTHERFUNCTIONS_H_
 #define OTHERFUNCTIONS_H_
 
-float GetAndCheckInt(int int1,     //IN -  lowest allowable parameter for
+int GetAndCheckInt(int int1,     //IN -  lowest allowable parameter for
 									   //      correct values that need to be
 									   //      error checked.
 			int int2); //IN -  highest allowable parameter for

@@ -1,4 +1,5 @@
 #include "BulkClass.h"
+#include "OtherFunctions.h"
 
 namespace AustinsNameSpace
 {
@@ -10,21 +11,36 @@ int initTranCount = 0;
 char Option;
 }
 
+namespace zain
+{
+	string stringTemp;
+	int intTemp;
+}
+
 using namespace AustinsNameSpace;
+using namespace zain;
 
 int main()
 {
 
 	BulkClass bulkClub;
 
-	cout << endl << endl;
+	// PRINT - Welcome screen
+	cout <<
+	"__          __  _                            _______            \n"
+	"\\ \\        / / | |                          |__   __|         \n"
+	" \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___     | | ___       \n"
+	"  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\    | |/ _ \\ \n"
+	"   \\  /\\  /  __/ | (_| (_) | | | | | |  __/    | | (_) |      \n"
+	"    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|    |_|\\___/  \n\n";
 
 	do
 	{
-
 		choice = bulkClub.Menu();
+		system("cls");
 
-		switch (choice) {
+		switch (choice)
+		{
 
 		cout << endl;
 		cin.ignore(1000, '\n');
@@ -122,7 +138,22 @@ int main()
 		{
 
 			//option #1, day is passed in by user input...
-			bulkClub.PrintSalesReport(4);
+
+			cin.ignore(1000, '\n');
+			do
+			{
+				//function call - menu
+				cout << endl;
+				cout << "Please enter a day(1-5)";
+				cout << endl;
+				cout << "Choice: ";
+				//function call - check int input
+				intTemp = -1;
+				intTemp = GetAndCheckInt(1, 5);
+
+			} while (intTemp == -1);
+
+			bulkClub.PrintSalesReport(intTemp);
 
 		} else
 		{
@@ -137,8 +168,12 @@ int main()
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 
+			cout << "Please enter a name or ID: ";
 			//option number 2 with a name passed in
-			found = bulkClub.SearchNameOrId("Sally Shopper");
+			cin.ignore(1000, '\n');
+			getline(cin, stringTemp);
+
+			found = bulkClub.SearchNameOrId(stringTemp);
 			if (!found)
 			{
 				cout << "\n\nName or ID not found...\n";
@@ -173,7 +208,9 @@ int main()
 		{
 			//searchs an item by user input and ouputs the amount sold and the
 			//total price
-			bulkClub.PrintTotalSalesAndItemsSold("Coke");
+			cout << "\nEnter item: ";
+			getline(cin, stringTemp);
+			bulkClub.PrintTotalSalesAndItemsSold(stringTemp);
 		} else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
@@ -227,7 +264,21 @@ int main()
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
-			bulkClub.PrintMemberExpiration(11);
+			cin.ignore(1000, '\n');
+			do
+			{
+				//function call - menu
+				cout << endl;
+				cout << "Please enter a day(1-5)";
+				cout << endl;
+				cout << "Choice: ";
+				//function call - check int input
+				intTemp = -1;
+				intTemp = GetAndCheckInt(1, 5);
+
+			} while (intTemp == -1);
+
+			bulkClub.PrintMemberExpiration(intTemp);
 		} else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!";

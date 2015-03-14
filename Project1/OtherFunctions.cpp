@@ -15,7 +15,7 @@
  * 	This function will return the pick to main. if not valid, will return
  * 	a -1.
  *************************************************************************/
-float GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
+int GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
 		//      correct values that need to be
 		//      error checked.
 		int int2) //IN -  highest allowable parameter for
@@ -25,7 +25,7 @@ float GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
 
 	ostringstream buffer; // CALC - used for spacing purposes
 	bool inputOk;         // CALC - error checking bool
-	float pick;           // OUT  - will output a correct number
+	int pick;           // OUT  - will output a correct number
 
 	//OUT - error checking command
 	pick = 0;
