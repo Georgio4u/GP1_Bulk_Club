@@ -73,7 +73,7 @@ int BulkClass::GetTransactionArraySize()
 }
 
 //adds members to a dynamic array
-void BulkClass::AddMembers(ifstream &infile)
+void BulkClass::AddMembers(ifstream &infile, char **path)
 {
 
 	//temp variables for the file to read in
@@ -82,11 +82,20 @@ void BulkClass::AddMembers(ifstream &infile)
 	string tempMemberType;
 	string tempDate;
 	BasicMember ** tempArray;
+	string formPath(path[0]); // Declares a string and converts char to str
+	int found = 0;
 
 	//private data member set to 0;
 	//memberCount = 0;
 
-	infile.open("C:/Users/RetupMoc/Documents/Workspaces/CS1C_Workspace/P1_BULK_CLUB/InputMembers.txt");
+	// This takes the path to the program passed in and modifies it to find
+	//		the path of the input file
+	found = formPath.find("Debug");
+	formPath.erase(found);
+	formPath += "InputMembers.txt";
+
+	// Opens input file
+	infile.open(formPath.c_str());
 
 	while (infile.good())
 	{
@@ -721,7 +730,7 @@ string BulkClass::to_string(int number)
 }
 
 //fills the array of items from the struct transaction
-void BulkClass::FillItemArray(ifstream &infile, int fileNumber)
+void BulkClass::FillItemArray(ifstream &infile, int fileNumber, char **path)
 {
 
 	Transaction** tempArray;
@@ -733,16 +742,25 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber)
 	double tempTotal;
 	float tempRebate;
 	int index = 0;
+	string formPath(path[0]); // Declares a string and converts char to str
+	int found = 0;
 
 	//private member data
 	//transactionCount = 0;
+
+	// This takes the path to the program passed in and modifies it to find
+	//		the path of the input file
+	found = formPath.find("Debug");
+	formPath.erase(found);
+	formPath += "Day";
 
 	//since the 5 days are in different files, we need to call this
 	//function 5 times each passing in a different file name verytime.
 	//so When we pass in a 1 from main it turns the one into
 	//"Day1transactions.txt" and so on up till Day5transactions.
 
-	fileName = "C:/Users/RetupMoc/Documents/Workspaces/CS1C_Workspace/P1_BULK_CLUB/Day" + to_string(fileNumber) + "Transactions.txt";
+	fileName =  formPath + to_string(fileNumber) + "Transactions.txt";
+
 	infile.open(fileName.c_str());
 
 	while (infile.good())

@@ -62,7 +62,7 @@ public:
 	int GetMemberArraySize();
 	int GetTransactionArraySize();
 
-	void AddMembers(ifstream &infile);
+	void AddMembers(ifstream &infile, char **path);
 	//add members from file
 
 	int Menu();
@@ -71,7 +71,7 @@ public:
 	void OutputMembers();
 	//basic output
 
-	void FillItemArray(ifstream&, int);
+	void FillItemArray(ifstream&, int, char **path);
 	//used to fill item/transactions array
 
 	string to_string(int number);

@@ -20,9 +20,8 @@ namespace zain
 using namespace AustinsNameSpace;
 using namespace zain;
 
-int main()
+int main(int argc, char **argv)
 {
-
 	BulkClass bulkClub;
 
 	// PRINT - Welcome screen
@@ -50,7 +49,7 @@ int main()
 		if (initMemCount == 0)
 		{
 			//adds members
-			bulkClub.AddMembers(infile);
+			bulkClub.AddMembers(infile, argv);
 			infile.clear();
 			cout << endl;
 			cout << bulkClub.GetMemberArraySize() << " members added...\n\n";
@@ -83,23 +82,23 @@ int main()
 			if (bulkClub.GetMemberArraySize() != 0)
 			{
 				//fills the array with the first file
-				bulkClub.FillItemArray(infile, 1);
+				bulkClub.FillItemArray(infile, 1, argv);
 				infile.clear();
 
 				//fills the array with the second file
-				bulkClub.FillItemArray(infile, 2);
+				bulkClub.FillItemArray(infile, 2, argv);
 				infile.clear();
 
 				//fills the array with the third file
-				bulkClub.FillItemArray(infile, 3);
+				bulkClub.FillItemArray(infile, 3, argv);
 				infile.clear();
 
 				//fills the array with the fourth file
-				bulkClub.FillItemArray(infile, 4);
+				bulkClub.FillItemArray(infile, 4, argv);
 				infile.clear();
 
 				//fills the array with the fifth file
-				bulkClub.FillItemArray(infile, 5);
+				bulkClub.FillItemArray(infile, 5, argv);
 				cout << endl;
 
 				cout << bulkClub.GetTransactionArraySize()
