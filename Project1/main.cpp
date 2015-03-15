@@ -24,6 +24,9 @@ int main(int argc, char **argv)
 {
 	BulkClass bulkClub;
 
+	// PRINT - Precision set to two decimal point for money
+	cout << fixed << setprecision(2);
+
 	// PRINT - Welcome screen
 	cout <<
 	"__          __  _                            _______            \n"
@@ -36,7 +39,6 @@ int main(int argc, char **argv)
 	do
 	{
 		choice = bulkClub.Menu();
-		system("cls");
 
 		switch (choice)
 		{
@@ -143,7 +145,7 @@ int main(int argc, char **argv)
 			{
 				//function call - menu
 				cout << endl;
-				cout << "Please enter a day(1-5)";
+				cout << "Please enter a day (1-5)";
 				cout << endl;
 				cout << "Choice: ";
 				//function call - check int input
@@ -151,6 +153,8 @@ int main(int argc, char **argv)
 				intTemp = GetAndCheckInt(1, 5);
 
 			} while (intTemp == -1);
+
+			cout << endl;
 
 			bulkClub.PrintSalesReport(intTemp);
 
@@ -167,7 +171,7 @@ int main(int argc, char **argv)
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 
-			cout << "Please enter a name or ID: ";
+			cout << "\nPlease enter a name or ID: ";
 			//option number 2 with a name passed in
 			cin.ignore(1000, '\n');
 			getline(cin, stringTemp);
@@ -187,6 +191,8 @@ int main(int argc, char **argv)
 		break;
 
 	case PRINT_TOTAL_PURCHASES:
+
+		cout << endl;
 
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
@@ -219,6 +225,8 @@ int main(int argc, char **argv)
 
 	case PRINT_ITEM_QUANTITY:
 
+		cout << endl;
+
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
@@ -233,6 +241,8 @@ int main(int argc, char **argv)
 
 	case PRINT_REBATE:
 
+		cout << endl;
+
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
@@ -246,6 +256,8 @@ int main(int argc, char **argv)
 		break;
 
 	case PRINT_AMOUNT_PAID:
+
+		cout << endl;
 
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
@@ -268,7 +280,7 @@ int main(int argc, char **argv)
 			{
 				//function call - menu
 				cout << endl;
-				cout << "Please enter a day(1-5)";
+				cout << "Please enter a day (1-5)";
 				cout << endl;
 				cout << "Choice: ";
 				//function call - check int input
@@ -276,6 +288,8 @@ int main(int argc, char **argv)
 				intTemp = GetAndCheckInt(1, 5);
 
 			} while (intTemp == -1);
+
+			cout << endl;
 
 			bulkClub.PrintMemberExpiration(intTemp);
 		} else
@@ -317,6 +331,14 @@ int main(int argc, char **argv)
 		//bulkClub.OutputMembers();
 
 		cout << endl << endl;
+
+		if(choice != EXIT)
+		{
+			cout << "Press Enter To Go Back" << endl;
+			cin.ignore(10000, '\n');
+			cin.ignore(10000, '\n');
+			system("cls");
+		}
 
 	} while (choice != EXIT);
 
