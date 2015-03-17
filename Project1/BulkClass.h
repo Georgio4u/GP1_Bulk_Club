@@ -23,6 +23,8 @@ struct Transaction
 	int day;
 
 	void ConvertStringDate(string);
+	void AddData(int tempId, int day, string itemName, double itemPrice,
+				 int itemQuantity);
 
 };
 
@@ -40,7 +42,9 @@ enum MenuOptions
 	PRINT_AMOUNT_PAID,
 	PRINT_EXPIRATION,
 	ADD_NEW_MEMBERS,
+	ADD_NEW_TRANSACTIONS,
 	DELETE_MEMBERS
+
 
 };
 
@@ -108,6 +112,7 @@ public:
 	void deleteMember();
 	void DeleteMemberList();
 	void DeleteTransactionList();
+	void AddTransactions();
 
 
 

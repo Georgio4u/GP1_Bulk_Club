@@ -76,3 +76,55 @@ int GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
 	return pick;
 }
 
+/*************************************************************************
+ *
+ * FUNCTION GetAndCheck
+ *_________________________________________________________________________
+ * This function will check for wrong input entered by the user for
+ * character values
+ *_________________________________________________________________________
+ * Pre-Conditions
+ * 	must be called in main
+ *
+ * Post-Conditions
+ * 	This function will return the pick to main. if not valid, will return
+ * 	loop till the value is valid
+ *************************************************************************/
+char GetAndCheck(char val1, char val2)
+{
+	char input;   // IN   - user yes or no for initializing
+	bool inputOk; // CALC - calcs reather or not value is appropriate
+
+	//OUT
+	inputOk = false;
+	cin >> input;
+	//uppercase
+	input = toupper(input);
+
+	//correct values
+	inputOk = (input == val1 || input == val2);
+
+	// if not correct
+	if (!inputOk)
+	{
+		//out
+		cout << endl;
+		cout << " **** " << input << " is an invalid "
+				"entry ****\n";
+		cout << " **** Please input " << val1 << " or " << val2 << setw(8)
+				<< right << " ****\n";
+		cin.clear();
+
+		input = 1;
+		cout << endl;
+
+	}
+	cin.ignore(1000, '\n');
+	//end of error check do-while
+
+	return input;
+
+}
+
+
+

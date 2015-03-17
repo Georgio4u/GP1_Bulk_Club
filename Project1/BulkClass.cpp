@@ -17,30 +17,32 @@ int BulkClass::Menu()
 	int tempChoice = -1;
 
 	// PRINT - Program name screen
-	cout <<
-	" ____        _ _       _____ _       _        ____   _____       \n"
-	"|  _ \\      | | |     / ____| |     | |      / __ \\ / ____|    \n"
-	"| |_) |_   _| | | __ | |    | |_   _| |__   | |  | | (___        \n"
-	"|  _ <| | | | | |/ / | |    | | | | | '_ \\  | |  | |\\___ \\    \n"
-	"| |_) | |_| | |   <  | |____| | |_| | |_) | | |__| |____) |      \n"
-	"|____/ \\__,_|_|_|\\_\\  \\_____|_|\\__,_|_.__/   \\____/|_____/ \n\n";
+	cout
+			<< " ____        _ _       _____ _       _        ____   _____       \n"
+					"|  _ \\      | | |     / ____| |     | |      / __ \\ / ____|    \n"
+					"| |_) |_   _| | | __ | |    | |_   _| |__   | |  | | (___        \n"
+					"|  _ <| | | | | |/ / | |    | | | | | '_ \\  | |  | |\\___ \\    \n"
+					"| |_) | |_| | |   <  | |____| | |_| | |_) | | |__| |____) |      \n"
+					"|____/ \\__,_|_|_|\\_\\  \\_____|_|\\__,_|_.__/   \\____/|_____/ \n\n";
 
 	//OUTPUT - the menu is diplsayed in main program
 	cout << setfill('-') << setw(59) << left << '-' << endl;
 	cout << setfill(' ');
-	cout << setw(58) << "| 0  - EXIT"                        << '|' << endl;
-	cout << setw(58) << "| 1  - PROCESS MEMBERS"             << '|' << endl;
-	cout << setw(58) << "| 2  - PROCESS TRANSACTIONS"        << '|' << endl;
-	cout << setw(58) << "| 3  - GENRERATE DAILY SALES REPORT"<< '|' << endl;
-	cout << setw(58) << "| 4  - SEARCH A NAME OR ID"         << '|' << endl;
-	cout << setw(58) << "| 5  - PRINT TOTAL PURCHASES"       << '|' << endl;
-	cout << setw(58) << "| 6  - PRINT ITEMS SOLD"            << '|' << endl;
-	cout << setw(58) << "| 7  - PRINT ITEM QUANTITY"         << '|' << endl;
-	cout << setw(58) << "| 8  - PRINT REBATE"                << '|' << endl;
-	cout << setw(58) << "| 9  - PRINT AMOUNT PAID"           << '|' << endl;
-	cout << setw(58) << "| 10 - PRINT EXPIRATION"            << '|' << endl;
-	cout << setw(58) << "| 11 - ADD MEMBERS"                 << '|' << endl;
-	cout << setw(58) << "| 12 - DELETE MEMBERS"              << '|' << endl;
+	cout << setw(58) << "| 0  - EXIT" << '|' << endl;
+	cout << setw(58) << "| 1  - PROCESS MEMBERS" << '|' << endl;
+	cout << setw(58) << "| 2  - PROCESS TRANSACTIONS" << '|' << endl;
+	cout << setw(58) << "| 3  - GENRERATE DAILY SALES REPORT" << '|' << endl;
+	cout << setw(58) << "| 4  - SEARCH A NAME OR ID" << '|' << endl;
+	cout << setw(58) << "| 5  - PRINT TOTAL PURCHASES" << '|' << endl;
+	cout << setw(58) << "| 6  - PRINT ITEMS SOLD" << '|' << endl;
+	cout << setw(58) << "| 7  - PRINT ITEM QUANTITY" << '|' << endl;
+	cout << setw(58) << "| 8  - PRINT REBATE" << '|' << endl;
+	cout << setw(58) << "| 9  - PRINT AMOUNT PAID" << '|' << endl;
+	cout << setw(58) << "| 10 - PRINT EXPIRATION" << '|' << endl;
+	cout << setw(58) << "| 11 - ADD MEMBERS" << '|' << endl;
+	cout << setw(58) << "| 12 - ADD TRANSACTIONS" << '|' << endl;
+	cout << setw(58) << "| 13 - DELETE MEMBERS" << '|' << endl;
+
 	cout << setfill('-') << setw(59) << left << '-' << endl;
 	cout << setfill(' ');
 
@@ -216,7 +218,7 @@ void BulkClass::PrintSalesReport(int enteredDay)
 	float totalRevenue = 0;
 	string memberChoice;
 
-	cout  << endl;
+	cout << endl;
 
 	memberChoice = SubMenu();
 
@@ -254,7 +256,7 @@ void BulkClass::PrintSalesReport(int enteredDay)
 				{
 					// PRINT - Splits up information groups(member and item)
 					cout << setfill('-') << setw(63) << '-' << setfill(' ')
-						 << endl;
+							<< endl;
 					//output member
 					cout << "Member Name: " << memberArray[mCount]->GetName()
 							<< endl;
@@ -262,11 +264,10 @@ void BulkClass::PrintSalesReport(int enteredDay)
 
 				}
 
-
 			}
 			//output of item name and the quantity of each item.
-			cout << setw(11) << "Item Name" << ": " << setw(30) << itemArray[tCount]->itemName
-					<< "  ";
+			cout << setw(11) << "Item Name" << ": " << setw(30)
+					<< itemArray[tCount]->itemName << "  ";
 			cout << "Item Quantity: " << itemArray[tCount]->itemQuantity
 					<< endl;
 
@@ -275,8 +276,7 @@ void BulkClass::PrintSalesReport(int enteredDay)
 	}
 
 	// PRINT - Last divider on list
-	cout << setfill('-') << setw(63) << '-' << setfill(' ')
-		 << endl;
+	cout << setfill('-') << setw(63) << '-' << setfill(' ') << endl;
 
 	cout << endl;
 	cout << "TOTAL SPENT ON DAY " << enteredDay << ": $" << totalRevenue;
@@ -293,6 +293,13 @@ bool BulkClass::SearchNameOrId(string memberNameOrNumber)
 	// we have to look the name up to find an ID
 	long memberNum = std::strtol(memberNameOrNumber.c_str(), NULL, 10);
 
+	if (memberNum != 0)
+	{
+		//if the user just entered an ID
+		cout << "Searching the ID: " << memberNum;
+		cout << endl << endl;
+	}
+
 	cout << endl;
 	//if the function above is a zero...
 	if (memberNum == 0)
@@ -308,14 +315,9 @@ bool BulkClass::SearchNameOrId(string memberNameOrNumber)
 				//since the name is found at a certain index, the id for
 				//that person will be in the same index
 				memberNum = memberArray[i]->GetId();
-				found = true;
 			}
 		}
 	}
-
-	//if the user just entered an ID
-	cout << "Searching the ID: " << memberNum;
-	cout << endl << endl;
 
 	//all we have to do is search the transaction array
 	//either way (if name found) will enter and search for a matching
@@ -334,7 +336,7 @@ bool BulkClass::SearchNameOrId(string memberNameOrNumber)
 			cout << "Item Purchased: " << setw(30) << itemArray[i]->itemName;
 			cout << endl;
 			cout << setw(14) << "Quantity" << ": "
-				 << itemArray[i]->itemQuantity;
+					<< itemArray[i]->itemQuantity;
 			cout << endl;
 
 		}
@@ -423,13 +425,19 @@ void BulkClass::PrintTotalSalesAndItemsSold(string item)
 
 	if (found)
 	{
+		cout << endl;
+		cout << setfill('-') << setw(50) << '-' << setfill(' ') << endl << endl;
 		cout << "The number of " << item << " sold is: " << tempCount;
 		cout << endl << endl;
-		cout << "The total cost of " << item << " sold is: " << tempTotal;
-
+		cout << "The total cost of " << item << " sold is: " << tempTotal
+				<< endl << endl;
+		cout << setfill('-') << setw(50) << '-' << setfill(' ') << endl << endl;
 	} else
 	{
-		cout << "\nItem not found...\n";
+		cout << setfill('-') << setw(50) << '-' << setfill(' ') << endl << endl;
+		cout << "Item not found...\n\n";
+		cout << setfill('-') << setw(50) << '-' << setfill(' ') << endl << endl;
+
 	}
 
 }
@@ -459,7 +467,7 @@ void BulkClass::PrintItemQuantity()
 	cout << setw(40) << "ITEM NAME" << "QUANTITY" << endl;
 
 	cout << right << setfill('-') << setw(40) << ' ' << setw(8) << '-'
-		 << setfill(' ') << left << endl;
+			<< setfill(' ') << left << endl;
 
 	for (int i = 0; i < transactionCount; i++)
 	{
@@ -485,7 +493,7 @@ void BulkClass::PrintPreferredRebate()
 
 	cout << setw(15) << "ID" << "REBATE\n";
 	cout << right << setfill('-') << setw(15) << ' ' << setw(6) << '-'
-		 << setfill(' ') << left << endl;
+			<< setfill(' ') << left << endl;
 
 	//sorts members by ID
 	for (int i = 0; i < memberCount; i++)
@@ -526,7 +534,7 @@ void BulkClass::PrintAmountPaid()
 	string memberChoice;
 
 	memberChoice = SubMenu();
-		cout << endl;
+	cout << endl;
 
 	//sorts members by ID
 	for (int i = 0; i < memberCount; i++)
@@ -548,7 +556,7 @@ void BulkClass::PrintAmountPaid()
 	cout << setw(25) << "Member Name";
 	cout << "Dues" << endl;
 	cout << right << setfill('-') << setw(25) << ' ' << setw(25) << ' '
-		 << setw(6) << '-' << setfill(' ') << left << endl;
+			<< setw(6) << '-' << setfill(' ') << left << endl;
 
 	for (int i = 0; i < memberCount; i++)
 	{
@@ -576,12 +584,15 @@ void BulkClass::PrintAmountPaid()
 
 void BulkClass::PrintMemberExpiration(int inputMonth)
 {
+
+	bool found = false;
+
 	cout << "The member(s) whos memberships expire on " << inputMonth
 			<< " are:\n\n";
 
 	cout << setw(25) << "Name" << "Dues\n";
 	cout << right << setfill('-') << setw(25) << ' ' << setw(6) << '-'
-		 << setfill(' ') << left << endl;
+			<< setfill(' ') << left << endl;
 
 	for (int i = 0; i < memberCount; i++)
 	{
@@ -589,6 +600,7 @@ void BulkClass::PrintMemberExpiration(int inputMonth)
 		if (memberArray[i]->ReturnMonthFromDate() == inputMonth)
 		{
 
+			found = true;
 			cout << setw(25) << memberArray[i]->GetName();
 			cout << '$';
 			memberArray[i]->PrintDues();
@@ -597,15 +609,22 @@ void BulkClass::PrintMemberExpiration(int inputMonth)
 
 	}
 
+	if (!found)
+	{
+		cout << "\nNo members expire on that month!\n";
+	}
+
 }
 
 void BulkClass::AddMembers()
 {
 
 	string tempName;
-	int tempId;
+	int tempId = 0;
+	int intTempMemberType;
 	string tempMemberType;
 	string tempDate;
+	bool dateWrong = false;
 	BasicMember ** tempArray;
 
 	//reads in all temp data
@@ -614,15 +633,79 @@ void BulkClass::AddMembers()
 	cout << setw(24) << "Enter a name: ";
 	getline(cin, tempName);
 	cout << endl;
-	cout << setw(24) << "Enter an ID: ";
-	cin >> tempId;
-	cin.ignore(1000, '\n');
+
+	do
+	{
+		//function call - menu
+		cout << setw(24) << "Enter an ID: ";
+		//function call - check int input
+		tempId = GetAndCheckInt(00000, 99999);
+		cin.ignore(1000, '\n');
+		for (int i = 0; i < memberCount; i++)
+		{
+
+			if (memberArray[i]->GetId() == tempId)
+			{
+				tempId = -1;
+				cout << "\n\nID already in use\n\n\n";
+			}
+
+		}
+
+	} while (tempId == -1);
+
 	cout << endl;
-	cout << setw(24) << "Enter a membership type: ";
-	getline(cin, tempMemberType);
-	cout << endl;
-	cout << "Enter a expiration date: ";
-	getline(cin, tempDate);
+
+	do
+	{
+		cout << "1 - BASIC\n";
+		cout << "2 - PREFERRED\n";
+		cout << setw(24) << "Enter a membership type: ";
+		intTempMemberType = GetAndCheckInt(1, 2);
+		cin.ignore(1000, '\n');
+
+	} while (intTempMemberType == -1);
+
+	if (intTempMemberType == 1)
+	{
+		tempMemberType = "Basic";
+	} else
+	{
+		tempMemberType = "Preferred";
+	}
+
+	do
+	{
+		int month = 0;
+		int day = 0;
+		int year = 0;
+		dateWrong = false;
+
+		cout << endl;
+		cout << "Enter a expiration date:(MM/DD/YRRR) ";
+		getline(cin, tempDate);
+
+		sscanf(tempDate.c_str(), "%2d/%2d/%4d", &month, &day, &year);
+
+		if (day < 0 || day > 32)
+		{
+
+			cout << "\nInvalid Day\n";
+			dateWrong = true;
+
+		}
+		if (month < 0 || month > 12)
+		{
+			cout << "\nInvalid Month\n";
+			dateWrong = true;
+		}
+		if (year < 1000 || year > 2100)
+		{
+			cout << "\nInvalid Year\n";
+			dateWrong = true;
+		}
+
+	} while (dateWrong);
 
 	//temp array must hold the data of array...
 	tempArray = memberArray;
@@ -650,12 +733,103 @@ void BulkClass::AddMembers()
 				tempMemberType, tempDate);
 	} else if (tempMemberType == "Basic")
 	{
+		cout << tempId;
 		//constructor call
 		memberArray[memberCount] = new BasicMember(tempName, tempId,
 				tempMemberType, tempDate);
 	}
 
 	memberCount++;
+
+}
+
+void BulkClass::AddTransactions()
+{
+
+	int tempId;
+	string tempName;
+	int tempDay;
+	double tempItemPrice;
+	int tempItemQuantity;
+
+	Transaction** tempArray = NULL;
+
+	//temp array must hold the data of array...
+	tempArray = itemArray;
+
+	//creating a whole new array of base member
+	itemArray = new Transaction*[transactionCount + 1];
+
+	//will skip the first time when memberCount = 0;
+	//but will copy the induvidual elements over as array grows
+	for (int i = 0; i < transactionCount; i++)
+	{
+
+		itemArray[i] = tempArray[i];
+
+	}
+
+	delete tempArray;
+
+	do
+	{
+		cout << setw(24) << "Enter an transaction ID: ";
+		//function call - check int input
+		tempId = GetAndCheckInt(10000, 99999);
+		cin.ignore(1000, '\n');
+
+	} while (tempId == -1);
+
+	cout << endl;
+
+
+	{
+		//function call - menu
+		cout << setw(24) << "Enter a day the transaction took place: ";
+		//function call - check int input
+		tempDay = GetAndCheckInt(1, 5);
+		cin.ignore(1000, '\n');
+
+	}
+	while (tempDay == -1);
+
+	cout << endl;
+
+	cout << "Enter item name: ";
+	getline(cin, tempName);
+
+	cout << endl;
+
+	{
+		//function call - menu
+		cout << setw(24) << "Enter a item price: ";
+		//function call - check int input
+		tempItemPrice = GetAndCheckInt(.50, 500.00);
+		cin.ignore(1000, '\n');
+
+	}
+	while (tempItemPrice == -1);
+
+	cout << endl;
+
+
+	{
+		//function call - menu
+		cout << setw(24) << "Enter a item quantity: ";
+		//function call - check int input
+		tempItemQuantity = GetAndCheckInt(1, 200);
+		cin.ignore(1000, '\n');
+
+	}
+	while (tempItemQuantity == -1);
+
+
+	itemArray[transactionCount] = new Transaction();
+
+	itemArray[transactionCount]->AddData(tempId, tempDay, tempName,
+									tempItemPrice, tempItemQuantity);
+
+	transactionCount++;
 
 }
 
@@ -703,8 +877,10 @@ void BulkClass::deleteMember()
 			}
 		}
 
+
 		// delete old array
 		delete tempArray;
+		memberCount--;
 	} else
 	{
 		cout << "\n\nName not found!\n\n";
@@ -779,7 +955,7 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber, char **path)
 	//so When we pass in a 1 from main it turns the one into
 	//"Day1transactions.txt" and so on up till Day5transactions.
 
-	fileName =  formPath + to_string(fileNumber) + "Transactions.txt";
+	fileName = formPath + to_string(fileNumber) + "Transactions.txt";
 
 	infile.open(fileName.c_str());
 
@@ -822,16 +998,6 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber, char **path)
 		infile >> itemArray[transactionCount]->itemPrice
 				>> itemArray[transactionCount]->itemQuantity;
 		infile.ignore(1000, '\n');
-
-		/****
-		 ERROR CHECK CODE:
-		 cout << itemArray[transactionCount]->itemPrice << endl;
-		 cout << itemArray[transactionCount]->itemQuantity << endl;
-		 cout << itemArray[transactionCount]->memberId << endl;
-		 cout << itemArray[transactionCount]->itemName << endl;
-		 cout << tempDate << endl;
-
-		 ****/
 
 		//NEED TO UPDATE DATA IN MEMBER OBJECTS
 		while (index < memberCount)
@@ -880,6 +1046,22 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber, char **path)
 void Transaction::ConvertStringDate(string tempDate)
 {
 	date.SetDate(tempDate);
+}
+
+void Transaction:: AddData(int tempId, int day, string itemName,
+						   double itemPrice, int itemQuantity)
+{
+
+
+	this->memberId = tempId;
+	this->day = day;
+	this->itemName = itemName;
+	this->itemPrice = itemPrice;
+	this->itemQuantity = itemQuantity;
+
+
+
+
 }
 
 void BulkClass::DeleteMemberList()

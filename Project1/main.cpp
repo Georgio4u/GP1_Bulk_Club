@@ -13,8 +13,8 @@ char Option;
 
 namespace zain
 {
-	string stringTemp;
-	int intTemp;
+string stringTemp;
+int intTemp;
 }
 
 using namespace AustinsNameSpace;
@@ -28,20 +28,19 @@ int main(int argc, char **argv)
 	cout << fixed << setprecision(2);
 
 	// PRINT - Welcome screen
-	cout <<
-	"__          __  _                            _______            \n"
-	"\\ \\        / / | |                          |__   __|         \n"
-	" \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___     | | ___       \n"
-	"  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\    | |/ _ \\ \n"
-	"   \\  /\\  /  __/ | (_| (_) | | | | | |  __/    | | (_) |      \n"
-	"    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|    |_|\\___/  \n\n";
+	cout
+			<< "__          __  _                            _______            \n"
+					"\\ \\        / / | |                          |__   __|         \n"
+					" \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___     | | ___       \n"
+					"  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\    | |/ _ \\ \n"
+					"   \\  /\\  /  __/ | (_| (_) | | | | | |  __/    | | (_) |      \n"
+					"    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|    |_|\\___/  \n\n";
 
 	do
 	{
 		choice = bulkClub.Menu();
 
-		switch (choice)
-		{
+		switch (choice) {
 
 		cout << endl;
 		cin.ignore(1000, '\n');
@@ -57,19 +56,20 @@ int main(int argc, char **argv)
 			cout << bulkClub.GetMemberArraySize() << " members added...\n\n";
 
 			initMemCount++;
-		}
-		else
+		} else
 		{
-			cout << "\n\nDo you want to re-initialize the list?... : ";
-			cin >> Option;
+			do
+			{
+				cout << "\n\nDo you want to re-initialize the list?... : ";
+				Option = GetAndCheck('Y', 'N');
+			} while (Option == -1);
 
 			if (Option == 'Y')
 			{
 				cout << "\n Okay, please hit 1 to-initialize the list.\n\n";
 				initMemCount = 0;
 				bulkClub.DeleteMemberList();
-			}
-			else
+			} else
 			{
 				cout << "\n\nList not re-initialized...\n\n";
 			}
@@ -114,16 +114,18 @@ int main(int argc, char **argv)
 			}
 		} else
 		{
-			cout << "\n\nDo you want to re-initialize the list?...: ";
-			cin >> Option;
+			do
+			{
+				cout << "\n\nDo you want to re-initialize the list?... : ";
+				Option = GetAndCheck('Y', 'N');
+			} while (Option == -1);
 
 			if (Option == 'Y')
 			{
 				cout << "\n Okay, please hit 2 to-initialize the list.\n\n";
 				initTranCount = 0;
 				bulkClub.DeleteTransactionList();
-			}
-			else
+			} else
 			{
 				cout << "\n\nList not re-initialized...\n\n";
 			}
@@ -171,15 +173,15 @@ int main(int argc, char **argv)
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 
+			cin.ignore(1000, '\n');
 			cout << "\nPlease enter a name or ID: ";
 			//option number 2 with a name passed in
-			cin.ignore(1000, '\n');
 			getline(cin, stringTemp);
 
 			found = bulkClub.SearchNameOrId(stringTemp);
 			if (!found)
 			{
-				cout << "\n\nName or ID not found...\n";
+				cout << "\n\nName or ID has no transaction record\n\n";
 
 			}
 
@@ -211,6 +213,7 @@ int main(int argc, char **argv)
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
+			cin.ignore(1000, '\n');
 			//searchs an item by user input and ouputs the amount sold and the
 			//total price
 			cout << "\nEnter item: ";
@@ -280,12 +283,12 @@ int main(int argc, char **argv)
 			{
 				//function call - menu
 				cout << endl;
-				cout << "Please enter a day (1-5)";
+				cout << "Please enter a month (1-12)";
 				cout << endl;
 				cout << "Choice: ";
 				//function call - check int input
 				intTemp = -1;
-				intTemp = GetAndCheckInt(1, 5);
+				intTemp = GetAndCheckInt(1, 12);
 
 			} while (intTemp == -1);
 
@@ -325,6 +328,19 @@ int main(int argc, char **argv)
 
 		break;
 
+	case ADD_NEW_TRANSACTIONS:
+
+		if (bulkClub.GetMemberArraySize() != 0
+				&& bulkClub.GetTransactionArraySize() != 0)
+		{
+			bulkClub.AddTransactions();
+		} else
+		{
+			cout << "\nNEED TO ADD MEMBERS FIRST!";
+		}
+
+		break;
+
 		}
 
 		//outputs with all the changed data
@@ -332,11 +348,8 @@ int main(int argc, char **argv)
 
 		cout << endl << endl;
 
-		if(choice != EXIT)
+		if (choice != EXIT)
 		{
-			cout << "Press Enter To Go Back" << endl;
-			cin.ignore(10000, '\n');
-			cin.ignore(10000, '\n');
 			system("cls");
 		}
 

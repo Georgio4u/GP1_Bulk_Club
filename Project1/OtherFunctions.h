@@ -15,6 +15,7 @@ int GetAndCheckInt(int int1,     //IN -  lowest allowable parameter for
 					   //      correct values that need to be
 					   //      error checked.
 
+char GetAndCheck(char val1, char val2);
 
 
 

@@ -12,10 +12,10 @@
  ************************************************************************/
 Date::Date()
 {
-		// initialized all values
-		dateMonth = 0;
-		dateDay = 0;
-		dateYear = 0;
+	// initialized all values
+	dateMonth = 0;
+	dateDay = 0;
+	dateYear = 0;
 }
 
 /*************************************************************************
@@ -31,12 +31,12 @@ Date::Date()
  * 	This function will store date values in the date class from files
  ************************************************************************/
 Date::Date(int month,  // IN - month from file
-		   int day,    // IN - day from file
-		   int year)   // IN - year from file
+		int day,    // IN - day from file
+		int year)   // IN - year from file
 {
 
-		// calls set year
-		SetDate(month, day, year);
+	// calls set year
+	SetDate(month, day, year);
 }
 
 /*************************************************************************
@@ -67,8 +67,8 @@ Date::~Date()
 // Checks to see if the date is valid prior to settingthe date
 /*************************************************************************/
 void Date::SetDate(int month, // IN - month from file
-				   int day,   // IN - day from file
-				   int year)  // IN - year from file
+		int day,   // IN - day from file
+		int year)  // IN - year from file
 {
 	int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int currentYear;
@@ -90,56 +90,55 @@ void Date::SetDate(int month, // IN - month from file
 	// YEAR: The year must be between 1900 and the currentYear
 
 	/***
-	if (year > currentYear || year < 1900)
-	{
-		cout << "\n*** Invalid Year(not changed) ***";
-		//cout << "Your year was " << year << " and the current year is "
-				//<< currentYear << endl;
-	}
+	 if (year > currentYear || year < 1900)
+	 {
+	 cout << "\n*** Invalid Year(not changed) ***";
+	 //cout << "Your year was " << year << " and the current year is "
+	 //<< currentYear << endl;
+	 }
 
-	// MONTH: The month must be between 0 and 12 or
-	// <= currentMonth for the currentYear
+	 // MONTH: The month must be between 0 and 12 or
+	 // <= currentMonth for the currentYear
 
-	else if ((year != currentYear && (month > 12 || month < 0))
-			|| (year == currentYear && month > currentMonth))
-	{
-		cout << "n*** InvalidMonth ***nn";
-	}
+	 else if ((year != currentYear && (month > 12 || month < 0))
+	 || (year == currentYear && month > currentMonth))
+	 {
+	 cout << "n*** InvalidMonth ***nn";
+	 }
 
-	// DAY: The day must be <= the # of days in the month
-	// This also account for Leap Year
+	 // DAY: The day must be <= the # of days in the month
+	 // This also account for Leap Year
 
-	else
-	{
-		lastDayInMonth = daysInMonth[month - 1];
-		// LEAP YEAR Adjustment to lastDayInMonth
-		if (month == 2
-				&& ((year % 4 == 0 || year % 400 == 0) && year % 100 != 0))
-		{
-			lastDayInMonth++;
-		}
-		// Check if Day is valid
+	 else
+	 {
+	 lastDayInMonth = daysInMonth[month - 1];
+	 // LEAP YEAR Adjustment to lastDayInMonth
+	 if (month == 2
+	 && ((year % 4 == 0 || year % 400 == 0) && year % 100 != 0))
+	 {
+	 lastDayInMonth++;
+	 }
+	 // Check if Day is valid
 
-		if ((day > lastDayInMonth || day < 0)
-				|| (year == currentYear && month == currentMonth
-						&& day > currentDay))
-		{
-			cout << "n*** Inavlid day ***nn";
-		}
+	 if ((day > lastDayInMonth || day < 0)
+	 || (year == currentYear && month == currentMonth
+	 && day > currentDay))
+	 {
+	 cout << "n*** Inavlid day ***nn";
+	 }
 
-		else
-		{
-		****/
-			// Set the Date (if it is valid)
-			dateMonth = month;
-			dateDay = day;
-			dateYear = year;
+	 else
+	 {
+	 ****/
+	// Set the Date (if it is valid)
+	dateMonth = month;
+	dateDay = day;
+	dateYear = year;
 
-		// END-DAYCHECK
+	// END-DAYCHECK
 
 	// END-YEAR - MONTH If-else-if
 }
-
 
 /*************************************************************************
  *
@@ -172,24 +171,40 @@ void Date::SetDate(Date d) // IN - date from files
  * Post-Conditions
  * 	This function will store date values in the date class from files
  ************************************************************************/
-void Date:: SetDate(string date)
+void Date::SetDate(string date)
 {
-
+	bool dateWrong = false;
 
 	int day, month, year;
 
 	//converts string to 3 ints and then calls the other set method
-	sscanf(date.c_str(), "%2d/%2d/%4d",&month,&day,&year);
+	sscanf(date.c_str(), "%2d/%2d/%4d", &month, &day, &year);
 
-//cout << date << endl;
-//cout << month << " " << day << " " << year << endl;
 
-	SetDate(month, day, year);
+	if (day < 0 || day > 32)
+	{
 
+		cout << "\nInvalid Day\n";
+		dateWrong = true;
+
+	}
+	if (month < 0 || month > 12)
+	{
+		cout << "\nInvalid Month\n";
+		dateWrong = true;
+	}
+	if (year < 1000 || year > 2100)
+	{
+		cout << "\nInvalid Year\n";
+		dateWrong = true;
+	}
+
+	if (!dateWrong)
+	{
+		SetDate(month, day, year);
+	}
 
 }
-
-
 
 /******************************************************
  ACCESSORS
@@ -200,9 +215,9 @@ void Date:: SetDate(string date)
  GetDay
  DisplayDate
  ******************************************************/
-void Date::GetDate(           int & month,      // IN - month from file
-					int & day,        // IN - day from file
-					int & year) const // IN - year from file
+void Date::GetDate(int & month,      // IN - month from file
+		int & day,        // IN - day from file
+		int & year) const // IN - year from file
 {
 	//returns all values to location needed
 	month = dateMonth;
@@ -281,7 +296,7 @@ void Date::DisplayDate() const
 
 	ostringstream buffer; // CALC - buffer used for spacing
 
-    // Check if Day or Month are < 10 and add a leading 0 if necessary
+	// Check if Day or Month are < 10 and add a leading 0 if necessary
 	if (dateMonth < 10)
 	{
 		//out
@@ -319,8 +334,8 @@ void Date::DisplayDate() const
  * 	This function will return a count to find fees and amount of interest
  ************************************************************************/
 int Date::CountMonths(Date toDate) // CALC - date of latest transaction
-					     //        passed to compare with the
-					     //        date last accessed.
+//        passed to compare with the
+//        date last accessed.
 {
 
 	//comparing both dates
