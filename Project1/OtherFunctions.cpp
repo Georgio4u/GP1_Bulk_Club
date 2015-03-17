@@ -40,7 +40,7 @@ int GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
 		// wrong input will return an -1
 		pick = -1;
 		cin.clear();
-		cin.ignore(1000, '\n');
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << endl << endl;
 
 	}

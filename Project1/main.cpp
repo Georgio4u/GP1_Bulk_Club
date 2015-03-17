@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 		switch (choice) {
 
 		cout << endl;
-		cin.ignore(1000, '\n');
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	case ADD_INITIAL_MEMBERS:
 
@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 
 			//option #1, day is passed in by user input...
 
-			cin.ignore(1000, '\n');
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			do
 			{
 				//function call - menu
@@ -176,6 +176,10 @@ int main(int argc, char **argv)
 			cin.ignore(1000, '\n');
 			cout << "\nPlease enter a name or ID: ";
 			//option number 2 with a name passed in
+<<<<<<< HEAD
+=======
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+>>>>>>> origin/Project-Details
 			getline(cin, stringTemp);
 
 			found = bulkClub.SearchNameOrId(stringTemp);
@@ -278,7 +282,7 @@ int main(int argc, char **argv)
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
-			cin.ignore(1000, '\n');
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			do
 			{
 				//function call - menu
@@ -350,6 +354,12 @@ int main(int argc, char **argv)
 
 		if (choice != EXIT)
 		{
+<<<<<<< HEAD
+=======
+			cout << "Press Enter To Go Back" << endl;
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+>>>>>>> origin/Project-Details
 			system("cls");
 		}
 

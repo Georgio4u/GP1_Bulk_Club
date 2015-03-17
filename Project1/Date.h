@@ -20,6 +20,8 @@
 #include <fstream>
 #include <vector>
 #include <typeinfo>
+#include <ios>
+#include <limits>
 using namespace std;
 
 
