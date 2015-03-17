@@ -103,7 +103,7 @@ void BulkClass::AddMembers(ifstream &infile, char **path)
 		//reads in all temp data
 		getline(infile, tempName);
 		infile >> tempId;
-		infile.ignore(1000, '\n');
+		infile.ignore(numeric_limits<streamsize>::max(), '\n');
 		getline(infile, tempMemberType);
 		getline(infile, tempDate);
 
@@ -609,14 +609,14 @@ void BulkClass::AddMembers()
 	BasicMember ** tempArray;
 
 	//reads in all temp data
-	cin.ignore(1000, '\n');
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	cout << setw(24) << "Enter a name: ";
 	getline(cin, tempName);
 	cout << endl;
 	cout << setw(24) << "Enter an ID: ";
 	cin >> tempId;
-	cin.ignore(1000, '\n');
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	cout << endl;
 	cout << setw(24) << "Enter a membership type: ";
 	getline(cin, tempMemberType);
@@ -667,7 +667,7 @@ void BulkClass::deleteMember()
 	int deletedIndex = 0;
 	bool found = false;
 
-	cin.ignore(1000, '\n');
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	cout << "\n\nEnter a member for deletion: \n";
 	getline(cin, deletionName);
 
@@ -815,13 +815,13 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber, char **path)
 		itemArray[transactionCount]->ConvertStringDate(tempDate);
 
 		infile >> itemArray[transactionCount]->memberId;
-		infile.ignore(1000, '\n');
+		infile.ignore(numeric_limits<streamsize>::max(), '\n');
 
 		getline(infile, itemArray[transactionCount]->itemName);
 
 		infile >> itemArray[transactionCount]->itemPrice
 				>> itemArray[transactionCount]->itemQuantity;
-		infile.ignore(1000, '\n');
+		infile.ignore(numeric_limits<streamsize>::max(), '\n');
 
 		/****
 		 ERROR CHECK CODE:
