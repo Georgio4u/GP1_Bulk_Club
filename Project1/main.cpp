@@ -40,7 +40,8 @@ int main(int argc, char **argv)
 	{
 		choice = bulkClub.Menu();
 
-		switch (choice) {
+		switch (choice)
+		{
 
 		cout << endl;
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -385,12 +386,34 @@ int main(int argc, char **argv)
 			cout << endl;
 			bulkClub.ShouldPreferredMembersConvert();
 
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!";
 		}
 
 		break;
+
+	case ABOUT:
+		// Used to output all the programmers commitments
+			cout << endl << setfill('*') << setw(59) << '*' << setfill(' ')
+			     << endl;
+			cout << setw(37) << right << "ABOUT THIS PROGRAM" << left;
+			cout << endl << setfill('*') << setw(59) << '*' << setfill(' ')
+			     << endl;
+
+			cout << setw(19) << "PRODUCT OWNER:" << "Austin English\n";
+			cout << setw(19) << "SCRUM MASTER:" << "Georgio Christodulou\n";
+			cout << setw(19) << "NOBLE TEAM MEMBER:" << "Zain Hue...?\n\n";
+
+			cout << right << "BulkClass" << setfill('.') << setw(51)
+				 << "Austin English\n";
+			cout << "BasicMember" << setw(49) << "Georgio Christodulou\n";
+			cout << "UML" << setw(56) << "Zain";
+			cout << endl << setfill('*') << setw(59) << '*' << setfill(' ')
+			     << endl;
+
+			break;
 
 		}
 

@@ -19,13 +19,13 @@ int BulkClass::Menu()
 	int tempChoice = -1;
 
 	// PRINT - Program name screen
-	cout
-			<< " ____        _ _       _____ _       _        ____   _____       \n"
-					"|  _ \\      | | |     / ____| |     | |      / __ \\ / ____|    \n"
-					"| |_) |_   _| | | __ | |    | |_   _| |__   | |  | | (___        \n"
-					"|  _ <| | | | | |/ / | |    | | | | | '_ \\  | |  | |\\___ \\    \n"
-					"| |_) | |_| | |   <  | |____| | |_| | |_) | | |__| |____) |      \n"
-					"|____/ \\__,_|_|_|\\_\\  \\_____|_|\\__,_|_.__/   \\____/|_____/ \n\n";
+	cout <<
+	" ____        _ _       _____ _       _        ____   _____       \n"
+	"|  _ \\      | | |     / ____| |     | |      / __ \\ / ____|    \n"
+	"| |_) |_   _| | | __ | |    | |_   _| |__   | |  | | (___        \n"
+	"|  _ <| | | | | |/ / | |    | | | | | '_ \\  | |  | |\\___ \\    \n"
+	"| |_) | |_| | |   <  | |____| | |_| | |_) | | |__| |____) |      \n"
+	"|____/ \\__,_|_|_|\\_\\  \\_____|_|\\__,_|_.__/   \\____/|_____/ \n\n";
 
 	//OUTPUT - the menu is diplsayed in main program
 	cout << setfill('-') << setw(59) << left << '-' << endl;
@@ -48,7 +48,7 @@ int BulkClass::Menu()
 			<< endl;
 	cout << setw(58) << "| 15 - WHICH PREFERRED MEMBERS SHOULD CONVERT" << '|'
 			<< endl;
-
+	cout << setw(58) << "| 16 - ABOUT THE PROGRAM" << '|' << endl;
 	cout << setfill('-') << setw(59) << left << '-' << endl;
 	cout << setfill(' ');
 
@@ -59,7 +59,7 @@ int BulkClass::Menu()
 		cout << endl;
 		cout << "Choice: ";
 		//function call - check int input
-		tempChoice = GetAndCheckInt(0, 15);
+		tempChoice = GetAndCheckInt(0, 16);
 
 	} while (tempChoice == -1);
 
