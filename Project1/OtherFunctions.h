@@ -19,4 +19,5 @@ char GetAndCheck(char val1, char val2);
 
 
 
+
 #endif /* OTHERFUNCTIONS_H_ */

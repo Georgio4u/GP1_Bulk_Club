@@ -11,6 +11,8 @@ BulkClass::BulkClass()
 
 }
 
+
+
 int BulkClass::Menu()
 {
 
@@ -29,8 +31,8 @@ int BulkClass::Menu()
 	cout << setfill('-') << setw(59) << left << '-' << endl;
 	cout << setfill(' ');
 	cout << setw(58) << "| 0  - EXIT" << '|' << endl;
-	cout << setw(58) << "| 1  - PROCESS MEMBERS" << '|' << endl;
-	cout << setw(58) << "| 2  - PROCESS TRANSACTIONS" << '|' << endl;
+	cout << setw(58) << "| 1  - ADD DATA" << '|' << endl;
+	cout << setw(58) << "| 2  - RE-INITALIZE" << '|' << endl;
 	cout << setw(58) << "| 3  - GENRERATE DAILY SALES REPORT" << '|' << endl;
 	cout << setw(58) << "| 4  - SEARCH A NAME OR ID" << '|' << endl;
 	cout << setw(58) << "| 5  - PRINT TOTAL PURCHASES" << '|' << endl;
@@ -42,6 +44,10 @@ int BulkClass::Menu()
 	cout << setw(58) << "| 11 - ADD MEMBERS" << '|' << endl;
 	cout << setw(58) << "| 12 - ADD TRANSACTIONS" << '|' << endl;
 	cout << setw(58) << "| 13 - DELETE MEMBERS" << '|' << endl;
+	cout << setw(58) << "| 14 - WHICH BASIC MEMBERS SHOULD CONVERT" << '|'
+			<< endl;
+	cout << setw(58) << "| 15 - WHICH PREFERRED MEMBERS SHOULD CONVERT" << '|'
+			<< endl;
 
 	cout << setfill('-') << setw(59) << left << '-' << endl;
 	cout << setfill(' ');
@@ -53,7 +59,7 @@ int BulkClass::Menu()
 		cout << endl;
 		cout << "Choice: ";
 		//function call - check int input
-		tempChoice = GetAndCheckInt(0, 12);
+		tempChoice = GetAndCheckInt(0, 15);
 
 	} while (tempChoice == -1);
 
@@ -218,9 +224,28 @@ void BulkClass::PrintSalesReport(int enteredDay)
 	float totalRevenue = 0;
 	string memberChoice;
 
+	int lastMem = 0;
+	int totalMem = 0;
+
+	Transaction * tempItem = NULL;
+
 	cout << endl;
 
 	memberChoice = SubMenu();
+	cout << endl;
+
+	for (int i = 0; i < transactionCount; i++)
+	{
+		for (int j = 0; j < transactionCount; j++)
+		{
+			if (itemArray[i]->memberId < itemArray[j]->memberId)
+			{
+				tempItem = itemArray[i];
+				itemArray[i] = itemArray[j];
+				itemArray[j] = tempItem;
+			}
+		}
+	}
 
 	//outter loop to loop through transactions array
 	for (int tCount = 0; tCount < transactionCount; tCount++)
@@ -249,6 +274,7 @@ void BulkClass::PrintSalesReport(int enteredDay)
 				{
 					continue;
 				}
+
 				//need to search the member array to a member number at
 				//the current itemArray postion to see who shopped that
 				//day
@@ -260,11 +286,20 @@ void BulkClass::PrintSalesReport(int enteredDay)
 					//output member
 					cout << "Member Name: " << memberArray[mCount]->GetName()
 							<< endl;
+
+					if (itemArray[tCount]->memberId != lastMem)
+					{
+						totalMem++;
+						lastMem = itemArray[tCount]->memberId;
+						//cout << endl << '*' << itemArray[tCount]->memberId << '|' << itemArray[tCount]->memberId << '|' << totalMem << endl;
+					}
+
 					break;
 
 				}
 
 			}
+
 			//output of item name and the quantity of each item.
 			cout << setw(11) << "Item Name" << ": " << setw(30)
 					<< itemArray[tCount]->itemName << "  ";
@@ -280,6 +315,8 @@ void BulkClass::PrintSalesReport(int enteredDay)
 
 	cout << endl;
 	cout << "TOTAL SPENT ON DAY " << enteredDay << ": $" << totalRevenue;
+	cout << endl;
+	cout << "TOTAL MEMBER COUNT ON DAY: " << totalMem << endl;
 
 }
 
@@ -630,15 +667,14 @@ void BulkClass::AddMembers()
 	//reads in all temp data
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	cout << setw(24) << "Enter a name: ";
+	cout << "Enter a name: ";
 	getline(cin, tempName);
 	cout << endl;
-<<<<<<< HEAD
 
 	do
 	{
 		//function call - menu
-		cout << setw(24) << "Enter an ID: ";
+		cout << "Enter an ID: ";
 		//function call - check int input
 		tempId = GetAndCheckInt(00000, 99999);
 		cin.ignore(1000, '\n');
@@ -655,21 +691,14 @@ void BulkClass::AddMembers()
 
 	} while (tempId == -1);
 
-=======
-	cout << setw(24) << "Enter an ID: ";
-	cin >> tempId;
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	cout << endl;
-	cout << setw(24) << "Enter a membership type: ";
-	getline(cin, tempMemberType);
->>>>>>> origin/Project-Details
 	cout << endl;
 
 	do
 	{
 		cout << "1 - BASIC\n";
 		cout << "2 - PREFERRED\n";
-		cout << setw(24) << "Enter a membership type: ";
+		cout << "Enter a membership type: ";
+
 		intTempMemberType = GetAndCheckInt(1, 2);
 		cin.ignore(1000, '\n');
 
@@ -742,7 +771,6 @@ void BulkClass::AddMembers()
 				tempMemberType, tempDate);
 	} else if (tempMemberType == "Basic")
 	{
-		cout << tempId;
 		//constructor call
 		memberArray[memberCount] = new BasicMember(tempName, tempId,
 				tempMemberType, tempDate);
@@ -750,9 +778,12 @@ void BulkClass::AddMembers()
 
 	memberCount++;
 
+	OverWriteMemberFile();
+	cout << "\n\nMember " << tempName << " was added!\n\n";
+
 }
 
-void BulkClass::AddTransactions()
+void BulkClass::AddTransaction()
 {
 
 	int tempId;
@@ -760,6 +791,9 @@ void BulkClass::AddTransactions()
 	int tempDay;
 	double tempItemPrice;
 	int tempItemQuantity;
+	int index = 0;
+	double tempTotal;
+	double tempRebate;
 
 	Transaction** tempArray = NULL;
 
@@ -782,7 +816,7 @@ void BulkClass::AddTransactions()
 
 	do
 	{
-		cout << setw(24) << "Enter an transaction ID: ";
+		cout << "Enter an transaction ID: ";
 		//function call - check int input
 		tempId = GetAndCheckInt(10000, 99999);
 		cin.ignore(1000, '\n');
@@ -791,16 +825,15 @@ void BulkClass::AddTransactions()
 
 	cout << endl;
 
-
+	do
 	{
 		//function call - menu
-		cout << setw(24) << "Enter a day the transaction took place: ";
+		cout << "Enter a day the transaction took place: ";
 		//function call - check int input
 		tempDay = GetAndCheckInt(1, 5);
 		cin.ignore(1000, '\n');
 
-	}
-	while (tempDay == -1);
+	} while (tempDay == -1);
 
 	cout << endl;
 
@@ -808,20 +841,19 @@ void BulkClass::AddTransactions()
 	getline(cin, tempName);
 
 	cout << endl;
-
+	do
 	{
 		//function call - menu
 		cout << setw(24) << "Enter a item price: ";
 		//function call - check int input
-		tempItemPrice = GetAndCheckInt(.50, 500.00);
+		tempItemPrice = GetAndCheckInt(.10, 500.00);
 		cin.ignore(1000, '\n');
 
-	}
-	while (tempItemPrice == -1);
+	} while (tempItemPrice == -1);
 
 	cout << endl;
 
-
+	do
 	{
 		//function call - menu
 		cout << setw(24) << "Enter a item quantity: ";
@@ -829,16 +861,47 @@ void BulkClass::AddTransactions()
 		tempItemQuantity = GetAndCheckInt(1, 200);
 		cin.ignore(1000, '\n');
 
-	}
-	while (tempItemQuantity == -1);
-
+	} while (tempItemQuantity == -1);
 
 	itemArray[transactionCount] = new Transaction();
 
 	itemArray[transactionCount]->AddData(tempId, tempDay, tempName,
-									tempItemPrice, tempItemQuantity);
+			tempItemPrice, tempItemQuantity);
+
+	while (index < memberCount)
+	{
+		//comparing the IDs of the transaction file and the member objects
+		if (itemArray[transactionCount]->memberId
+				== memberArray[index]->GetId())
+		{
+			//if they match we will update their total.
+			tempTotal = (itemArray[transactionCount]->itemPrice
+					* itemArray[transactionCount]->itemQuantity);
+
+			//update is called right here
+			memberArray[index]->SettotalSpent(tempTotal);
+
+			//need to do rebate for preferred members
+			if (memberArray[index]->GetMemberType() == "Preferred")
+			{
+
+				//typecast nesessary to get rebate for totaling
+				tempRebate =
+						((PreferredMember*) memberArray[index])->GetRebate();
+
+				//get the total rebate without taxes
+				tempRebate += tempTotal * .06;
+
+				//now we set the new rebate
+				((PreferredMember*) memberArray[index])->SetRebate(tempRebate);
+			}
+
+		}
+		index++;
+	}
 
 	transactionCount++;
+	cout << "\n\nTransaction successfully added\n\n";
 
 }
 
@@ -851,7 +914,7 @@ void BulkClass::deleteMember()
 	bool found = false;
 
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	cout << "\n\nEnter a member for deletion: \n";
+	cout << "\n\nEnter a member for deletion:  ";
 	getline(cin, deletionName);
 
 	for (int i = 0; i < memberCount; i++)
@@ -860,6 +923,7 @@ void BulkClass::deleteMember()
 		{
 			deletedIndex = i;
 			found = true;
+			break;
 		}
 
 	}
@@ -876,7 +940,7 @@ void BulkClass::deleteMember()
 		//element size for new array
 		int a = 0;
 
-		for (int i = 0; i < memberCount - 1; i++)
+		for (int i = 0; i < memberCount; i++)
 		{
 			// copy elements, except the one to be deleted
 			if (i != deletedIndex)  // skip item at position 25
@@ -886,40 +950,118 @@ void BulkClass::deleteMember()
 			}
 		}
 
-
 		// delete old array
 		delete tempArray;
 		memberCount--;
+
+		cout << "\n\nMember " << deletionName << " was deleted!\n\n";
+
 	} else
 	{
 		cout << "\n\nName not found!\n\n";
 	}
 
+	OverWriteMemberFile();
+
 }
 
-//temp functiion to see if the correct date is used as output
-void BulkClass::OutputMembers()
+void BulkClass::OverWriteMemberFile()
 {
-	cout << setprecision(2) << fixed;
 
-	cout << "TESTING DATA...\n\n\n";
+	ofstream outfile;
+
+	// Opens input file
+	outfile.clear();
+	outfile.open("InputMembers.txt");
+
 	for (int i = 0; i < memberCount; i++)
 	{
 
-		cout << left;
+		outfile << memberArray[i]->GetName() << endl;
+		outfile << memberArray[i]->GetId() << endl;
+		outfile << memberArray[i]->GetMemberType() << endl;
+		outfile << memberArray[i]->ReturnDate();
 
-		cout << setw(30) << memberArray[i]->GetName() << "  totalSpent: "
-				<< setw(15) << memberArray[i]->GetTotalSpent();
+		if (i < memberCount - 1)
+		{
+			outfile << endl;
+		}
+
+	}
+
+	outfile.close();
+}
+
+void BulkClass::ShouldBasicMembersConvert()
+{
+
+	double tempTotalSpent = 0;
+	double taxRate = 0;
+	double basicMemberRebate = 0;
+
+	cout << setw(30) << "MEMBER NAME" << "BASIC MEMBERS HYPOTHETICAL REBATE"
+			<< endl;
+	cout << right << setfill('-') << setw(30) << ' ' << setw(35) << '-'
+			<< setfill(' ') << left << endl;
+
+	for (int i = 0; i < memberCount; i++)
+	{
+
+		basicMemberRebate = 0;
+		tempTotalSpent = 0;
+		taxRate = 0;
+
+		if (memberArray[i]->GetMemberType() == "Basic")
+		{
+
+			tempTotalSpent = memberArray[i]->GetTotalSpent();
+			taxRate = (tempTotalSpent * .083);
+			tempTotalSpent -= taxRate;
+			basicMemberRebate = tempTotalSpent * .06;
+
+		}
+
+		if (basicMemberRebate > 95.00)
+		{
+
+			cout << setw(30) << memberArray[i]->GetName();
+			cout << basicMemberRebate;
+			cout << endl;
+		}
+
+	}
+
+}
+
+void BulkClass::ShouldPreferredMembersConvert()
+{
+
+	double tempRebate = 0;
+
+	cout << setw(30) << "MEMBER NAME" << "CONVERT OR NOT?" << endl;
+
+	cout << right << setfill('-') << setw(30) << ' ' << setw(35) << '-'
+			<< setfill(' ') << left << endl;
+
+	for (int i = 0; i < memberCount; i++)
+	{
 
 		if (memberArray[i]->GetMemberType() == "Preferred")
 		{
 
-			//typecast for rebate since it is of preferred class
-			cout << "Rebate: "
-					<< ((PreferredMember*) memberArray[i])->GetRebate();
-		}
+			tempRebate = ((PreferredMember*) memberArray[i])->GetRebate();
 
-		cout << endl;
+			if (tempRebate < 95.00)
+			{
+				cout << setw(30) << memberArray[i]->GetName();
+				cout << "   Should convert to basic\n\n";
+
+			} else
+			{
+				cout << setw(30) << "    Do not need to convert\n\n";
+			}
+
+		}
 
 	}
 
@@ -1011,7 +1153,7 @@ void BulkClass::FillItemArray(ifstream &infile, int fileNumber, char **path)
 		//NEED TO UPDATE DATA IN MEMBER OBJECTS
 		while (index < memberCount)
 		{
-//comparing the IDs of the transaction file and the member objects
+			//comparing the IDs of the transaction file and the member objects
 			if (itemArray[transactionCount]->memberId
 					== memberArray[index]->GetId())
 			{
@@ -1057,10 +1199,9 @@ void Transaction::ConvertStringDate(string tempDate)
 	date.SetDate(tempDate);
 }
 
-void Transaction:: AddData(int tempId, int day, string itemName,
-						   double itemPrice, int itemQuantity)
+void Transaction::AddData(int tempId, int day, string itemName,
+		double itemPrice, int itemQuantity)
 {
-
 
 	this->memberId = tempId;
 	this->day = day;
@@ -1068,22 +1209,30 @@ void Transaction:: AddData(int tempId, int day, string itemName,
 	this->itemPrice = itemPrice;
 	this->itemQuantity = itemQuantity;
 
-
-
-
 }
 
 void BulkClass::DeleteMemberList()
 {
 
-	delete[] memberArray;
+	for (int i = 0; i < memberCount; i++)
+	{
+
+		delete memberArray[i];
+
+	}
 
 	memberCount = 0;
 }
 
 void BulkClass::DeleteTransactionList()
 {
-	delete[] itemArray;
+
+	for (int i = 0; i < transactionCount; i++)
+	{
+
+		delete itemArray[i];
+
+	}
 	transactionCount = 0;
 
 }

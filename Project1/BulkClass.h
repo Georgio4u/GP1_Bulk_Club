@@ -31,8 +31,8 @@ struct Transaction
 enum MenuOptions
 {
 	EXIT,
-	ADD_INITIAL_MEMBERS,
-	ADD_TRANSACTIONS,
+	ADD_DATA,
+	RE_INIZALIZE,
 	PRINT_SALES_REPORT,
 	SEARCH_NAME_OR_ID,
 	PRINT_TOTAL_PURCHASES,
@@ -43,8 +43,9 @@ enum MenuOptions
 	PRINT_EXPIRATION,
 	ADD_NEW_MEMBERS,
 	ADD_NEW_TRANSACTIONS,
-	DELETE_MEMBERS
-
+	DELETE_MEMBERS,
+	BASIC_CONVERT_OR_NOT,
+	PREFERRED_CONVERT_OR_NOT
 
 };
 
@@ -63,6 +64,8 @@ public:
 	BulkClass();
 	//constructor
 
+	BulkClass( const BasicMember& otherArr );
+
 	int GetMemberArraySize();
 	int GetTransactionArraySize();
 
@@ -77,6 +80,8 @@ public:
 
 	void FillItemArray(ifstream&, int, char **path);
 	//used to fill item/transactions array
+
+	void UpdateRebateAndCost();
 
 	string to_string(int number);
 	//converts ints to a string
@@ -112,7 +117,10 @@ public:
 	void deleteMember();
 	void DeleteMemberList();
 	void DeleteTransactionList();
-	void AddTransactions();
+	void AddTransaction();
+	void ShouldBasicMembersConvert();
+	void ShouldPreferredMembersConvert();
+	void OverWriteMemberFile();
 
 
 

@@ -291,7 +291,7 @@ int Date::GetDay() const
  * Post-Conditions
  * 	This function will dislpay the whole date with formatting
  ************************************************************************/
-void Date::DisplayDate() const
+string Date::DisplayDate() const
 {
 
 	ostringstream buffer; // CALC - buffer used for spacing
@@ -304,8 +304,8 @@ void Date::DisplayDate() const
 	}
 
 	buffer << dateMonth << '/';
-	cout << buffer.str() << setw(12 - buffer.str().length());
-	buffer.str("");
+	//cout << buffer.str() << setw(12 - buffer.str().length());
+	//buffer.str("");
 
 	if (dateDay < 10)
 	{
@@ -315,8 +315,10 @@ void Date::DisplayDate() const
 
 	//output date
 	buffer << dateDay << '/' << dateYear;
-	cout << buffer.str() << setw(12 - buffer.str().length());
-	buffer.str("");
+	//cout << buffer.str() << setw(12 - buffer.str().length());
+	//buffer.str("");
+
+	return buffer.str();
 
 }
 

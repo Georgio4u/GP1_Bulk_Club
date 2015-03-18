@@ -32,6 +32,7 @@ public:
 	//getter
 
 	int ReturnMonthFromDate();
+	string ReturnDate();
 
 	virtual void PrintDues();
 

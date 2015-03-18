@@ -26,6 +26,8 @@ PreferredMember::PreferredMember(string name, int id,
 
 
 	preferredDues = 95.00;
+
+
 	rebate = 0;
 
 }

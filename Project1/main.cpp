@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 		cout << endl;
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	case ADD_INITIAL_MEMBERS:
+	case ADD_DATA:
 
 		if (initMemCount == 0)
 		{
@@ -53,82 +53,39 @@ int main(int argc, char **argv)
 			bulkClub.AddMembers(infile, argv);
 			infile.clear();
 			cout << endl;
-			cout << bulkClub.GetMemberArraySize() << " members added...\n\n";
+			cout << bulkClub.GetMemberArraySize() << " members added...\n";
 
 			initMemCount++;
+
+			//fills the array with the first file
+			bulkClub.FillItemArray(infile, 1, argv);
+			infile.clear();
+
+			//fills the array with the second file
+			bulkClub.FillItemArray(infile, 2, argv);
+			infile.clear();
+
+			//fills the array with the third file
+			bulkClub.FillItemArray(infile, 3, argv);
+			infile.clear();
+
+			//fills the array with the fourth file
+			bulkClub.FillItemArray(infile, 4, argv);
+			infile.clear();
+
+			//fills the array with the fifth file
+			bulkClub.FillItemArray(infile, 5, argv);
+			cout << endl;
+
+			cout << bulkClub.GetTransactionArraySize()
+					<< " transactions added...\n";
+
+			initTranCount = 1;
+
 		} else
 		{
-			do
-			{
-				cout << "\n\nDo you want to re-initialize the list?... : ";
-				Option = GetAndCheck('Y', 'N');
-			} while (Option == -1);
 
-			if (Option == 'Y')
-			{
-				cout << "\n Okay, please hit 1 to-initialize the list.\n\n";
-				initMemCount = 0;
-				bulkClub.DeleteMemberList();
-			} else
-			{
-				cout << "\n\nList not re-initialized...\n\n";
-			}
-		}
-
-		break;
-
-	case ADD_TRANSACTIONS:
-
-		if (initTranCount == 0)
-		{
-			if (bulkClub.GetMemberArraySize() != 0)
-			{
-				//fills the array with the first file
-				bulkClub.FillItemArray(infile, 1, argv);
-				infile.clear();
-
-				//fills the array with the second file
-				bulkClub.FillItemArray(infile, 2, argv);
-				infile.clear();
-
-				//fills the array with the third file
-				bulkClub.FillItemArray(infile, 3, argv);
-				infile.clear();
-
-				//fills the array with the fourth file
-				bulkClub.FillItemArray(infile, 4, argv);
-				infile.clear();
-
-				//fills the array with the fifth file
-				bulkClub.FillItemArray(infile, 5, argv);
-				cout << endl;
-
-				cout << bulkClub.GetTransactionArraySize()
-						<< " transactions added...\n\n";
-
-				initTranCount = 1;
-
-			} else
-			{
-				cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
-			}
-		} else
-		{
-			do
-			{
-				cout << "\n\nDo you want to re-initialize the list?... : ";
-				Option = GetAndCheck('Y', 'N');
-			} while (Option == -1);
-
-			if (Option == 'Y')
-			{
-				cout << "\n Okay, please hit 2 to-initialize the list.\n\n";
-				initTranCount = 0;
-				bulkClub.DeleteTransactionList();
-			} else
-			{
-				cout << "\n\nList not re-initialized...\n\n";
-			}
+			cout << "\n\n CANNOT ADD AGAIN\n\n";
 
 		}
 
@@ -156,7 +113,7 @@ int main(int argc, char **argv)
 
 			} while (intTemp == -1);
 
-			cout << endl;
+			cout << endl << endl;
 
 			bulkClub.PrintSalesReport(intTemp);
 
@@ -176,16 +133,15 @@ int main(int argc, char **argv)
 			cin.ignore(1000, '\n');
 			cout << "\nPlease enter a name or ID: ";
 			//option number 2 with a name passed in
-<<<<<<< HEAD
-=======
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
->>>>>>> origin/Project-Details
+
+			//cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			getline(cin, stringTemp);
 
 			found = bulkClub.SearchNameOrId(stringTemp);
 			if (!found)
 			{
 				cout << "\n\nName or ID has no transaction record\n\n";
+				cout << setfill('-') << setw(45) << '-' << setfill(' ') << endl;
 
 			}
 
@@ -311,6 +267,7 @@ int main(int argc, char **argv)
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
+			cout << endl;
 			bulkClub.AddMembers();
 		} else
 		{
@@ -337,7 +294,97 @@ int main(int argc, char **argv)
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
-			bulkClub.AddTransactions();
+			bulkClub.AddTransaction();
+		} else
+		{
+			cout << "\nNEED TO ADD MEMBERS FIRST!";
+		}
+
+		break;
+
+	case RE_INIZALIZE:
+
+		if (bulkClub.GetMemberArraySize() != 0
+				&& bulkClub.GetTransactionArraySize() != 0)
+		{
+
+			do
+			{
+				cout << "\n\nDo you want to re-initialize the list?... : ";
+				Option = GetAndCheck('Y', 'N');
+			} while (Option == -1);
+
+			if (Option == 'Y')
+			{
+
+				cout << "\n\nlist re- initialized";
+				bulkClub.DeleteMemberList();
+				bulkClub.DeleteTransactionList();
+
+				//adds members
+				infile.clear();
+				bulkClub.AddMembers(infile, argv);
+				infile.clear();
+				cout << endl;
+
+				initMemCount++;
+
+				//fills the array with the first file
+				bulkClub.FillItemArray(infile, 1, argv);
+				infile.clear();
+
+				//fills the array with the second file
+				bulkClub.FillItemArray(infile, 2, argv);
+				infile.clear();
+
+				//fills the array with the third file
+				bulkClub.FillItemArray(infile, 3, argv);
+				infile.clear();
+
+				//fills the array with the fourth file
+				bulkClub.FillItemArray(infile, 4, argv);
+				infile.clear();
+
+				//fills the array with the fifth file
+				bulkClub.FillItemArray(infile, 5, argv);
+				cout << endl;
+
+			}
+			else
+			{
+				cout << "\n\nList not re-initialized...";
+			}
+
+		} else
+		{
+			cout << "\nCANNOT DELETE FROM AN EMPTY LIST!";
+		}
+
+		break;
+
+	case BASIC_CONVERT_OR_NOT:
+
+		if (bulkClub.GetMemberArraySize() != 0
+				&& bulkClub.GetTransactionArraySize() != 0)
+		{
+			cout << endl;
+			bulkClub.ShouldBasicMembersConvert();
+		} else
+		{
+			cout << "\nNEED TO ADD MEMBERS FIRST!";
+		}
+
+		break;
+
+	case PREFERRED_CONVERT_OR_NOT:
+
+		if (bulkClub.GetMemberArraySize() != 0
+				&& bulkClub.GetTransactionArraySize() != 0)
+		{
+
+			cout << endl;
+			bulkClub.ShouldPreferredMembersConvert();
+
 		} else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!";
@@ -354,12 +401,7 @@ int main(int argc, char **argv)
 
 		if (choice != EXIT)
 		{
-<<<<<<< HEAD
-=======
-			cout << "Press Enter To Go Back" << endl;
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
->>>>>>> origin/Project-Details
+
 			system("cls");
 		}
 

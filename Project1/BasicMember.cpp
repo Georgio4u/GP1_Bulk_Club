@@ -91,6 +91,12 @@ int BasicMember::GetId()
 
  }
 
+ string BasicMember:: ReturnDate()
+ {
+
+	return memberExpiration.DisplayDate();
+
+ }
 
 
 

@@ -72,7 +72,7 @@ ACCESSORS
 	int GetDay()const;
 
 	// Displays in MM/DD/YYYY format
-	void DisplayDate()const;
+	string DisplayDate()const;
 
 	//counts the months to find interests.
 	int CountMonths(Date toDate);
