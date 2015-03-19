@@ -1292,7 +1292,7 @@ void BulkClass::OverWriteMemberFile()
 
 	// Opens input file
 	outfile.clear();
-	outfile.open("InputMembers.txt");
+	outfile.open("..//InputMembers.txt");
 
 	// will add member to the file
 	for (int i = 0; i < memberCount; i++)
