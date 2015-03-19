@@ -93,15 +93,15 @@ cout
 	cout << setw(58) << "| 1  - ADD DATA" << '|' << endl;
 	cout << setw(58) << "| 2  - RE-INITALIZE" << '|' << endl;
 	cout << setw(58) << "| 3  - GENRERATE DAILY SALES "
-			"					REPORT" << '|' << endl;
+						"REPORT" << '|' << endl;
 	cout << setw(58) << "| 4  - SEARCH A NAME OR ID TO VIEW "
-			"					TRANSACTIONS" << '|' << endl;
+			            "TRANSACTIONS" << '|' << endl;
 	cout << setw(58) << "| 5  - PRINT TOTAL PURCHASES "
-			"					MADE" << '|' << endl;
+			            "MADE" << '|' << endl;
 	cout << setw(58) << "| 6  - SEARCH AND PRINT AN ITEM "
-			"					SOLD" << '|' << endl;
+			            "SOLD" << '|' << endl;
 	cout << setw(58) << "| 7  - PRINT TOTAL ITEM "
-			"					QUANTITIES" << '|' << endl;
+			            "QUANTITIES" << '|' << endl;
 	cout << setw(58) << "| 8  - PRINT REBATE" << '|' << endl;
 	cout << setw(58) << "| 9  - PRINT MEMBER DUES" << '|' << endl;
 	cout << setw(58) << "| 10 - PRINT EXPIRATION" << '|' << endl;
@@ -111,7 +111,7 @@ cout
 	cout << setw(58) << "| 14 - WHICH BASIC MEMBERS SHOULD CONVERT" << '|'
 			<< endl;
 	cout << setw(58) << "| 15 - WHICH PREFERRED MEMBERS SHOULD "
-			"					CONVERT" << '|'
+			            "CONVERT" << '|'
 			<< endl;
 	cout << setw(58) << "| 16 - ABOUT THE PROGRAM" << '|' << endl;
 	cout << setfill('-') << setw(59) << left << '-' << endl;

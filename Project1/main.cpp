@@ -83,7 +83,7 @@ int main(int argc, char **argv)
 	{
 		// error check for menu
 		choice = bulkClub.Menu();
-
+		system("cls");
 		//switch for 15 options
 		switch (choice)
 		{
@@ -475,15 +475,40 @@ int main(int argc, char **argv)
 				             << "Austin English\n";
 			cout << setw(19) << "SCRUM MASTER:"
 				             << "Georgio Christodulou\n";
-			cout << setw(19) << "NOBLE TEAM MEMBER:" << "Zain Hue...?\n\n";
+			cout << setw(19) << "NOBLE TEAM MEMBER:" << "Zain Haque\n\n";
 
-			cout << right << "BulkClass" << setfill('.') << setw(51)
+			cout << setw(37) << right << "PROGRAMMING\n";
+
+			cout << "Loading Members" << setfill('.') << setw(45)
 				 << "Austin English\n";
-			cout << "BasicMember" << setw(49) << "Georgio Christodulou\n";
-			cout << "UML" << setw(56) << "Zain";
+			cout << "Loading Transactions" << setw(40) << "Zain Haque\n";
+			cout << "Sales Report" << setw(48) << "Georgio Christodulou\n";
+			cout << "Total Member Purchases" << setfill('.') << setw(38)
+				 << "Austin English\n";
+			cout << "Total Item Purchases" << setw(40) << "Zain Haque\n";
+			cout << "Output Sales of Items" << setw(39) << "Georgio "
+					                                       "Christodulou\n";
+			cout << "Output Quantity of Items" << setw(36) << "Georgio "
+					                                       "Christodulou\n";
+			cout << "Rebates" << setw(53) << "Zain Haque\n";
+			cout << "Member Dues" << setw(49) << "Austin English\n";
+			cout << "Membership Expiration" << setw(39) << "Georgio "
+					                                       "Christodulou\n";
+			cout << "Add Members" << setw(49) << "Zain Haque\n";
+			cout << "Remove Members" << setw(46) << "Georgio "
+					                                "Christodulou\n";
+			cout << "Change Membership Status" << setw(36) << "Austin "
+					                                          "English\n\n";
+
+			cout << right << setfill(' ') << setw(29) << "UML\n";
+
+			cout << "Class Diagram" << setfill('.') << setw(47)
+				 << "Georgio Christodulou\n";
+			cout << "State Diagram" << setw(47) << "Austin English\n";
+			cout << "Use Cases" << setw(50) << "Zain Haque";
+
 			cout << endl << setfill('*') << setw(59) << '*' << setfill(' ')
 			     << endl;
-
 			break;
 
 		}// end of switch
@@ -492,7 +517,7 @@ int main(int argc, char **argv)
 
 		if (choice != EXIT)
 		{
-			system("cls");
+			//system("cls");
 		}
 
 		// end of main do while loop
