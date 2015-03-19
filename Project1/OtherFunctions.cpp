@@ -1,3 +1,12 @@
+/**********************************************************
+ * AUTHOR 		 : Austin English, Zane, Georgio
+ * STUDENT ID 	 : 364965
+ * Project #1    : Bulk Club
+ * CLASS 		 : CS1C
+ * SECTION 		 : T/TH 12:30a - 4:20p
+ * DUE DATE 	 : 3/19/15
+ **********************************************************/
+
 #include "Date.h"
 #include "OtherFunctions.h"
 
@@ -16,11 +25,11 @@
  * 	a -1.
  *************************************************************************/
 int GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
-		//      correct values that need to be
-		//      error checked.
-		int int2) //IN -  highest allowable parameter for
-					//      correct values that need to be
-					//      error checked.
+							 //      correct values that need to be
+							 //      error checked.
+		int int2) 			 //IN -  highest allowable parameter for
+							//      correct values that need to be
+						    //      error checked.
 {
 
 	ostringstream buffer; // CALC - used for spacing purposes
@@ -35,8 +44,8 @@ int GetAndCheckInt(int int1, //IN -  lowest allowable parameter for
 	if (!(cin >> pick))
 	{
 		cout << endl;
-		cout << "**** Please input a NUMBER between " << int1 << " and " << int2
-				<< "       ****";
+		cout << "**** Please input a NUMBER between "
+			 << int1 << " and " << int2 << "       ****";
 		// wrong input will return an -1
 		pick = -1;
 		cin.clear();
@@ -125,6 +134,4 @@ char GetAndCheck(char val1, char val2)
 	return input;
 
 }
-
-
 

@@ -1,9 +1,11 @@
-/*
- * Date.cpp
- *
- *  Created on: Feb 12, 2015
- *      Author: Austin
- */
+/**********************************************************
+ * AUTHOR 		 : Austin English, Zane, Georgio
+ * STUDENT ID 	 : 364965
+ * Project #1    : Bulk Club
+ * CLASS 		 : CS1C
+ * SECTION 		 : T/TH 12:30a - 4:20p
+ * DUE DATE 	 : 3/19/15
+ **********************************************************/
 
 #include "Date.h"
 

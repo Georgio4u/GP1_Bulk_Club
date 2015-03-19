@@ -1,9 +1,11 @@
-/*
- * BasicMember.cpp
- *
- *  Created on: Feb 12, 2015
- *      Author: aenglish3
- */
+/**********************************************************
+ * AUTHOR 		 : Austin English, Zane, Georgio
+ * STUDENT ID 	 : 364965
+ * Project #1    : Bulk Club
+ * CLASS 		 : CS1C
+ * SECTION 		 : T/TH 12:30a - 4:20p
+ * DUE DATE 	 : 3/19/15
+ **********************************************************/
 
 #include "BasicMember.h"
 #include "OtherFunctions.h"
@@ -45,7 +47,7 @@ void BasicMember::SettotalSpent(double itemCost)
 
 	//calculates the total and then adds the sales tax.
 	totalSpent = (totalSpent + itemCost);
-	totalSpent += totalSpent * .08;
+	totalSpent += totalSpent * .0875;
 }
 
 //returns total spent

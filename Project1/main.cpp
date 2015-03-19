@@ -1,53 +1,100 @@
+/**********************************************************
+ * AUTHOR 		 : Austin English, Zane, Georgio
+ * STUDENT ID 	 : 364965
+ * Project #1    : Bulk Club
+ * CLASS 		 : CS1C
+ * SECTION 		 : T/TH 12:30a - 4:20p
+ * DUE DATE 	 : 3/19/15
+ **********************************************************/
+
 #include "BulkClass.h"
 #include "OtherFunctions.h"
 
+/*************************************************************************
+ *
+ *                  BULK CLUB(PROJECT #1)
+ *________________________________________________________________________
+ *  Hello users. Ever wondered how much time and money members spend at
+ *  the bulk club? Well the wait is over. Anyone who is curious can gain
+ *  access to a number of features when viewing spent data at the
+ *  bulk club. So many features that they are not even going to be listed
+ *  in this abstract. Enjoy using this program, and if any questions
+ *  arrise, be sure to click item #15 in the list to view contributions.
+ * _______________________________________________________________________
+ * INPUTS:
+ * 		infile    : access to all files
+ * 		choice    : user menu option
+ * 		stringTemp: User input for data
+ * 		Option    : user re initialize list
+ *
+ *
+ * PROCESSING:
+ *
+ * 		intTemp     : temp holder for user entered data(error check)
+ * 		initMemCount: will not allow option 1 to be entered again
+ * 		found       : data returns true or false, container variable
+ *
+ *
+ * OUTPUTS:
+ * 		The list ultimately outputs the list... not in main though
+ *
+ ************************************************************************/
+
+
+
+// Austins namespace variables
 namespace AustinsNameSpace
 {
-ifstream infile;
-bool found = false;
-int choice = 0;
-int initMemCount = 0;
-int initTranCount = 0;
-char Option;
+ifstream infile;      // file data
+bool found = false;   // error checking bool
+int choice = 0;       // user input data
+int initMemCount = 0; // errror checking tool
+char Option;          // user input for yes/no questions
 }
 
+// zains namespace variables
 namespace zain
 {
-string stringTemp;
-int intTemp;
+string stringTemp;  // tempstring for inputs
+int intTemp;        // int for holding user input for error checks
 }
 
+//using both namespaces in main...
 using namespace AustinsNameSpace;
 using namespace zain;
 
 int main(int argc, char **argv)
 {
-	BulkClass bulkClub;
+	BulkClass bulkClub; //bulkclub object
 
 	// PRINT - Precision set to two decimal point for money
 	cout << fixed << setprecision(2);
 
 	// PRINT - Welcome screen
 	cout
-			<< "__          __  _                            _______            \n"
-					"\\ \\        / / | |                          |__   __|         \n"
-					" \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___     | | ___       \n"
-					"  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\    | |/ _ \\ \n"
-					"   \\  /\\  /  __/ | (_| (_) | | | | | |  __/    | | (_) |      \n"
-					"    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|    |_|\\___/  \n\n";
+<< "__          __  _                            _______            \n"
+"\\ \\        / / | |                          |__   __|         \n"
+" \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___     | | ___       \n"
+"  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\    | |/ _ \\ \n"
+"   \\  /\\  /  __/ | (_| (_) | | | | | |  __/    | | (_) |      \n"
+"    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|    |_|\\___/  \n\n";
 
 	do
 	{
+		// error check for menu
 		choice = bulkClub.Menu();
 
+		//switch for 15 options
 		switch (choice)
 		{
 
 		cout << endl;
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+		// adds data to member list and transaction list
 	case ADD_DATA:
 
+		// will only add once
 		if (initMemCount == 0)
 		{
 			//adds members
@@ -80,25 +127,21 @@ int main(int argc, char **argv)
 
 			cout << bulkClub.GetTransactionArraySize()
 					<< " transactions added...\n";
-
-			initTranCount = 1;
-
-		} else
-		{
-
-			cout << "\n\n CANNOT ADD AGAIN\n\n";
-
 		}
-
+		else
+		{
+			//output
+			cout << "\n\n CANNOT ADD AGAIN\n\n";
+		}
 		break;
 
+		// will print the total sales reporty for a given day
 	case PRINT_SALES_REPORT:
 
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
-
-			//option #1, day is passed in by user input...
 
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			do
@@ -118,15 +161,18 @@ int main(int argc, char **argv)
 
 			bulkClub.PrintSalesReport(intTemp);
 
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
 		}
 
 		break;
 
+		//will search a name or id from user input
 	case SEARCH_NAME_OR_ID:
 
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
@@ -142,28 +188,33 @@ int main(int argc, char **argv)
 			if (!found)
 			{
 				cout << "\n\nName or ID has no transaction record\n\n";
-				cout << setfill('-') << setw(45) << '-' << setfill(' ') << endl;
-
+				cout << setfill('-') << setw(45) << '-'
+					 << setfill(' ') << endl;
 			}
-
-		} else
+		}
+		else
 		{
+			//output
 			cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
 		}
 
 		break;
 
+	// will print the total purchases of all members
 	case PRINT_TOTAL_PURCHASES:
 
 		cout << endl;
 
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 			//prints the total purchases by each member and a grand total.
 			bulkClub.PrintTotalPurchases();
-		} else
+		}
+		else
 		{
+			//output
 			cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
 		}
 
@@ -171,48 +222,57 @@ int main(int argc, char **argv)
 
 	case PRINT_TOTAL_ITEMS_SOLD:
 
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 			cin.ignore(1000, '\n');
-			//searchs an item by user input and ouputs the amount sold and the
-			//total price
+			//searchs an item by user input and ouputs the amount
+			//sold and the total price
 			cout << "\nEnter item: ";
 			getline(cin, stringTemp);
+
+			//function call
 			bulkClub.PrintTotalSalesAndItemsSold(stringTemp);
-		} else
+		}
+		else
 		{
+			//output
 			cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
 		}
 
 		break;
 
+	//prints the quantity of all items bought
 	case PRINT_ITEM_QUANTITY:
 
 		cout << endl;
 
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 			//prints the opverall quantity of each item
 			bulkClub.PrintItemQuantity();
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
 		}
 
 		break;
-
+		//prints the rebate of preferred members
 	case PRINT_REBATE:
 
 		cout << endl;
-
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 			//prints the rebate for preferred members
 			bulkClub.PrintPreferredRebate();
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
 		}
@@ -222,12 +282,13 @@ int main(int argc, char **argv)
 	case PRINT_AMOUNT_PAID:
 
 		cout << endl;
-
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 			bulkClub.PrintAmountPaid();
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!\n\n";
 		}
@@ -236,6 +297,7 @@ int main(int argc, char **argv)
 
 	case PRINT_EXPIRATION:
 
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
@@ -255,8 +317,10 @@ int main(int argc, char **argv)
 
 			cout << endl;
 
+			// function call
 			bulkClub.PrintMemberExpiration(intTemp);
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!";
 		}
@@ -265,12 +329,14 @@ int main(int argc, char **argv)
 
 	case ADD_NEW_MEMBERS:
 
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 			cout << endl;
 			bulkClub.AddMembers();
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!";
 		}
@@ -278,7 +344,7 @@ int main(int argc, char **argv)
 		break;
 
 	case DELETE_MEMBERS:
-
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
@@ -291,12 +357,13 @@ int main(int argc, char **argv)
 		break;
 
 	case ADD_NEW_TRANSACTIONS:
-
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 			bulkClub.AddTransaction();
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!";
 		}
@@ -304,7 +371,7 @@ int main(int argc, char **argv)
 		break;
 
 	case RE_INIZALIZE:
-
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
@@ -356,7 +423,8 @@ int main(int argc, char **argv)
 				cout << "\n\nList not re-initialized...";
 			}
 
-		} else
+		}
+		else
 		{
 			cout << "\nCANNOT DELETE FROM AN EMPTY LIST!";
 		}
@@ -364,13 +432,14 @@ int main(int argc, char **argv)
 		break;
 
 	case BASIC_CONVERT_OR_NOT:
-
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
 			cout << endl;
 			bulkClub.ShouldBasicMembersConvert();
-		} else
+		}
+		else
 		{
 			cout << "\nNEED TO ADD MEMBERS FIRST!";
 		}
@@ -378,7 +447,7 @@ int main(int argc, char **argv)
 		break;
 
 	case PREFERRED_CONVERT_OR_NOT:
-
+		// array cannot be empty
 		if (bulkClub.GetMemberArraySize() != 0
 				&& bulkClub.GetTransactionArraySize() != 0)
 		{
@@ -402,8 +471,10 @@ int main(int argc, char **argv)
 			cout << endl << setfill('*') << setw(59) << '*' << setfill(' ')
 			     << endl;
 
-			cout << setw(19) << "PRODUCT OWNER:" << "Austin English\n";
-			cout << setw(19) << "SCRUM MASTER:" << "Georgio Christodulou\n";
+			cout << setw(19) << "PRODUCT OWNER:"
+				             << "Austin English\n";
+			cout << setw(19) << "SCRUM MASTER:"
+				             << "Georgio Christodulou\n";
 			cout << setw(19) << "NOBLE TEAM MEMBER:" << "Zain Hue...?\n\n";
 
 			cout << right << "BulkClass" << setfill('.') << setw(51)
@@ -415,19 +486,16 @@ int main(int argc, char **argv)
 
 			break;
 
-		}
-
-		//outputs with all the changed data
-		//bulkClub.OutputMembers();
+		}// end of switch
 
 		cout << endl << endl;
 
 		if (choice != EXIT)
 		{
-
 			system("cls");
 		}
 
+		// end of main do while loop
 	} while (choice != EXIT);
 
 }
